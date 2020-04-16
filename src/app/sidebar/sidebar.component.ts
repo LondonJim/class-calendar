@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ImageDetails } from "src/app/image-list/image-list";
+import { ImageDetails } from "src/assets/image-list";
 
 @Component({
   selector: 'app-sidebar',
@@ -15,4 +15,7 @@ export class SidebarComponent implements OnInit {
     console.log(this.imageDetails)
   }
 
+  onAddImage(imageIndex) {
+
+  }
 }
