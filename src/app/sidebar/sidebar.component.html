@@ -1,3 +1,5 @@
 <div class="sidebar">
-  SIDEBAR
+  <span *ngFor='let imageDetail of imageDetails'>
+      <img style="width: 30%;" [src]="imageDetail.imageLink" alt="image">
+  </span>
 </div>
