@@ -10,6 +10,9 @@ import { ScreenDisplayModel } from "../models/screen-display.model";
 export class MainComponent implements OnInit {
   displayedImages: ScreenDisplayModel[];
   day = 'monday'; // TODO change so multiple days can be selected
+  selectedIndex: number;
+  selectedX: number;
+  selectedY: number;
 
   constructor(private dailyLayoutService: DailyLayoutService) { }
 
@@ -33,7 +36,17 @@ export class MainComponent implements OnInit {
     element.style.transform = `translate3d(${event.distance.x}px,${event.distance.y}px,0)`;
   }
 
-  onShowEdit(index) {
-    this.dailyLayoutService.editModeToggle(this.day, index);
+  onMouseDown(index, event) {
+    // set so edit can only be triggered on a non movement action on image
+    this.selectedIndex = index;
+    this.selectedX = event.target.offsetLeft;
+    this.selectedY = event.target.offsetTop;
+  }
+
+  onShowEdit(index, event) {
+    console.log(event);
+    if (this.selectedIndex === index && this.selectedX === event.target.offsetLeft && this.selectedY === event.target.offsetTop) {
+      this.dailyLayoutService.editModeToggle(this.day, index);
+    }
   }
 }
