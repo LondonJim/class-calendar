@@ -9,7 +9,7 @@ import { ScreenDisplayModel } from "src/app/models/screen-display.model";
   styleUrls: ['./sidebar.component.css']
 })
 export class SidebarComponent implements OnInit {
-  DEFAULT_COORDINATES = {  x: 100, y: 100, z: 100, size: 100 }
+  DEFAULT_COORDINATES = {  x: 100, y: 100, z: 100, size: 100, edit: false }
   imageDetails = ImageDetails;
 
   constructor(private dailyLayoutService: DailyLayoutService) { }

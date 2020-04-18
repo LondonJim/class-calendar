@@ -5,4 +5,5 @@ export class ScreenDisplayModel extends ImageDetailModel{
   y: number;
   z: number;
   size: number;
+  edit: boolean;
 }

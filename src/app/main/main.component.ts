@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ImageDetails } from "src/assets/image-list";
 import { DailyLayoutService } from "src/app/services/daily-layout.service";
 import { ScreenDisplayModel } from "../models/screen-display.model";
 
@@ -9,7 +8,6 @@ import { ScreenDisplayModel } from "../models/screen-display.model";
   styleUrls: ['./main.component.css']
 })
 export class MainComponent implements OnInit {
-  imageDetails = ImageDetails;
   displayedImages: ScreenDisplayModel[];
   day = 'monday'; // TODO change so multiple days can be selected
 
@@ -33,5 +31,9 @@ export class MainComponent implements OnInit {
     const element = event.source.getRootElement();
     element.style.removeProperty('transform');
     element.style.transform = `translate3d(${event.distance.x}px,${event.distance.y}px,0)`;
+  }
+
+  onShowEdit(index) {
+    this.dailyLayoutService.editModeToggle(this.day, index);
   }
 }

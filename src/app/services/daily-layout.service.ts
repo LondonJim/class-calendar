@@ -40,4 +40,9 @@ export class DailyLayoutService {
     this.dailyLayout[day][index].y = this.dailyLayout[day][index].y + newY;
     this.dailyLayoutChange.next(this.dailyLayout);
   }
+
+  editModeToggle(day, index) {
+    this.dailyLayout[day][index].edit = !this.dailyLayout[day][index].edit;
+    this.dailyLayoutChange.next(this.dailyLayout);
+  }
 }
