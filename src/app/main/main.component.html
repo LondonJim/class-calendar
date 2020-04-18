@@ -1,18 +1,30 @@
 <div class="main">
   MAIN
-  <div *ngFor='let displayedImage of displayedImages; index as index'>
+  <div
+    *ngFor='let displayedImage of displayedImages; index as index'
+    [ngStyle]="{ 'z-index': displayedImage.z }"
+    cdkDrag
+    (cdkDragEnded)="dragEnd($event, displayedImage, index);"
+    (cdkDragMoved)="dragMove($event)">
     <img
-      cdkDrag
-      [ngStyle]="{ position: 'absolute', 'z-index': displayedImage.z }"
+      [ngStyle]="{ position: 'absolute' }"
       [style.width.px] = 'displayedImage.size'
       [style.left.px] = 'displayedImage.x'
       [style.top.px] = 'displayedImage.y'
       [src]="displayedImage.link"
       [alt]="displayedImage.tag"
-      (cdkDragEnded)="dragEnd($event, displayedImage, index);"
-      (cdkDragMoved)="dragMove($event)"
       (mousedown)="onMouseDown(index, $event)"
       (click)="onShowEdit(index, $event)">
-    <span *ngIf="displayedImage.edit">EDITMODE</span>
+    <span
+      *ngIf="displayedImage.edit"
+      [ngStyle]="{ position: 'absolute', 'z-index': displayedImage.z, cursor: 'pointer' }"
+      [style.left.px] = 'displayedImage.x'
+      [style.top.px] = 'displayedImage.y'>
+      <mat-icon (click)="onIncrease(index)">add</mat-icon>
+      <mat-icon (click)="onDecrease(index)">remove</mat-icon>
+      <mat-icon (click)="onIncreaseZ(index)">keyboard_arrow_up</mat-icon>
+      <mat-icon (click)="onDecreaseZ(index)">keyboard_arrow_down</mat-icon>
+      <mat-icon (click)="onRemove(index)">clear</mat-icon>
+    </span>
   </div>
 </div>

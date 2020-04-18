@@ -14,9 +14,7 @@ export class SidebarComponent implements OnInit {
 
   constructor(private dailyLayoutService: DailyLayoutService) { }
 
-  ngOnInit(): void {
-    console.log(this.imageDetails)
-  }
+  ngOnInit(): void {}
 
   onAddImage(selectedImageIndex) {
     const imageDetails = this.imageDetails.filter(({ index }) => index === selectedImageIndex)

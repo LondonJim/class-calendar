@@ -20,6 +20,7 @@ export class DailyLayoutService {
 
   constructor()  {
     this.dailyLayoutChange.subscribe((value) => {
+      console.log(value);
       this.dailyLayout = value;
     });
   }
@@ -27,11 +28,30 @@ export class DailyLayoutService {
   addImage(day, image: ScreenDisplayModel) {
     this.dailyLayout[day].push(image);
     this.dailyLayoutChange.next(this.dailyLayout)
-    console.log(this.dailyLayout);
   }
 
-  removeImage(day, image: ScreenDisplayModel) {
-    this.dailyLayout[day] = this.dailyLayout[day].filter(({ index }) => index !== image.index);
+  increaseImageSize(day, index) {
+    this.dailyLayout[day][index].size = this.dailyLayout[day][index].size + 10;
+    this.dailyLayoutChange.next(this.dailyLayout);
+  }
+
+  decreaseImageSize(day, index) {
+    this.dailyLayout[day][index].size = this.dailyLayout[day][index].size - 10;
+    this.dailyLayoutChange.next(this.dailyLayout);
+  }
+
+  increaseZ(day, index) {
+    this.dailyLayout[day][index].z = this.dailyLayout[day][index].z + 1;
+    this.dailyLayoutChange.next(this.dailyLayout);
+  }
+
+  decreaseZ(day, index) {
+    this.dailyLayout[day][index].z = this.dailyLayout[day][index].z - 1;
+    this.dailyLayoutChange.next(this.dailyLayout);
+  }
+
+  removeImage(day, index) {
+    this.dailyLayout[day].splice(index, 1);
     this.dailyLayoutChange.next(this.dailyLayout);
   }
 

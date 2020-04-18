@@ -19,13 +19,11 @@ export class MainComponent implements OnInit {
   ngOnInit(): void {
     this.dailyLayoutService.dailyLayoutChange.subscribe(value => {
       this.displayedImages = value[this.day];
-      console.log(this.displayedImages);
     });
   }
 
   dragEnd(event, displayedImage, index) {
     const element = event.source.getRootElement();
-    console.log(event);
     this.dailyLayoutService.updatePostion(this.day, event.distance.x, event.distance.y, index);
     element.style.transform = 'translate3d(0,0,0)';
   }
@@ -44,9 +42,28 @@ export class MainComponent implements OnInit {
   }
 
   onShowEdit(index, event) {
-    console.log(event);
     if (this.selectedIndex === index && this.selectedX === event.target.offsetLeft && this.selectedY === event.target.offsetTop) {
       this.dailyLayoutService.editModeToggle(this.day, index);
     }
+  }
+
+  onIncrease(index) {
+    this.dailyLayoutService.increaseImageSize(this.day, index);
+  }
+
+  onDecrease(index) {
+    this.dailyLayoutService.decreaseImageSize(this.day, index);
+  }
+
+  onIncreaseZ(index) {
+    this.dailyLayoutService.increaseZ(this.day, index);
+  }
+
+  onDecreaseZ(index) {
+    this.dailyLayoutService.decreaseZ(this.day, index);
+  }
+
+  onRemove(index) {
+    this.dailyLayoutService.removeImage(this.day, index);
   }
 }
