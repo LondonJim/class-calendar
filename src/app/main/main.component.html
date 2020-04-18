@@ -1,12 +1,15 @@
 <div class="main">
   MAIN
-  <div *ngFor='let displayedImage of displayedImages;'>
+  <div *ngFor='let displayedImage of displayedImages; index as index'>
     <img
-      [ngStyle]="{ position: 'absolute', 'z-index': displayedImage?.z }"
-      [style.width.px] = 'displayedImage?.size'
+      cdkDrag
+      [ngStyle]="{ position: 'absolute', 'z-index': displayedImage.z }"
+      [style.width.px] = 'displayedImage.size'
       [style.left.px] = 'displayedImage.x'
       [style.top.px] = 'displayedImage.y'
       [src]="displayedImage.link"
-      [alt]="displayedImage.tag">
+      [alt]="displayedImage.tag"
+      (cdkDragEnded)="dragEnd($event, displayedImage, index);"
+      (cdkDragMoved)="dragMove($event)">
   </div>
 </div>
