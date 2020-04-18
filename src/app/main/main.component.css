@@ -1,4 +1,5 @@
 .main {
   height: 100vh;
   background-color: azure;
+  position: relative;
 }
