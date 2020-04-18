@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from "rxjs";
+import { Subject } from "rxjs";
 import { DaysModel } from "../models/days.model";
 import { ScreenDisplayModel } from "../models/screen-display.model";
 
@@ -14,26 +14,24 @@ export class DailyLayoutService {
     thursday: [],
     friday: []
   }
-
   // TODO read cookie to prefill starting value
-  private readonly _dailyLayout = new BehaviorSubject<DaysModel>(this.STARTING_VALUE);
+  dailyLayout: DaysModel = this.STARTING_VALUE;
+  dailyLayoutChange: Subject<DaysModel> = new Subject<DaysModel>();
 
-  // readonly dailyLayout$ = this._dailyLayout.asObservable();
-
-  get dailyLayout(): DaysModel {
-    return this._dailyLayout.getValue();
+  constructor()  {
+    this.dailyLayoutChange.subscribe((value) => {
+      this.dailyLayout = value
+    });
   }
-
-  // set dailyLayout(val:DaysModel) {
-  //   this._dailyLayout.next(val);
-  // }
 
   addImage(day, image: ScreenDisplayModel) {
     this.dailyLayout[day].push(image);
+    this.dailyLayoutChange.next(this.dailyLayout)
     console.log(this.dailyLayout);
   }
 
   removeImage(day, image: ScreenDisplayModel) {
     this.dailyLayout[day] = this.dailyLayout[day].filter(({ index }) => index !== image.index)
+    this.dailyLayoutChange.next(this.dailyLayout)
   }
 }

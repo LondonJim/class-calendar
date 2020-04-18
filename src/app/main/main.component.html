@@ -1,3 +1,6 @@
 <div class="main">
   MAIN
+  <div *ngFor='let displayedImage of displayedImages;'>
+    <img style="width: 100px; position: absolute;" [src]="displayedImage.link" [alt]="displayedImage.tag">
+  </div>
 </div>
