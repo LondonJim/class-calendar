@@ -7,7 +7,7 @@
     (cdkDragMoved)="dragMove($event)">
     <img
       [ngClass]="displayedImage.edit ? 'image-border' : null"
-      [ngStyle]="{ position: 'absolute' }"
+      [ngStyle]="{ position: 'absolute', cursor: 'pointer' }"
       [style.width.px] = 'displayedImage.size'
       [style.left.px] = 'displayedImage.x'
       [style.top.px] = 'displayedImage.y'
@@ -15,17 +15,16 @@
       [alt]="displayedImage.tag"
       (mousedown)="onMouseDown(index, $event)"
       (click)="onShowEdit(index, $event)">
-    <span
+    <div
       class="image-controls"
       *ngIf="displayedImage.edit"
-      [ngStyle]="{ position: 'absolute', cursor: 'pointer' }"
-      [style.left.px] = 'displayedImage.x'
-      [style.top.px] = 'displayedImage.y'>
+      [style.left.px] = 'displayedImage.x - 5'
+      [style.top.px] = 'displayedImage.y -41'>
       <mat-icon (click)="onIncrease(index)">add</mat-icon>
       <mat-icon (click)="onDecrease(index)">remove</mat-icon>
       <mat-icon (click)="onIncreasePosition(index)">keyboard_arrow_up</mat-icon>
       <mat-icon (click)="onDecreasePosition(index)">keyboard_arrow_down</mat-icon>
       <mat-icon (click)="onRemove(index)">clear</mat-icon>
-    </span>
+    </div>
   </div>
 </div>
