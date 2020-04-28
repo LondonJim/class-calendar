@@ -6,6 +6,7 @@
     (cdkDragEnded)="dragEnd($event, displayedImage, index);"
     (cdkDragMoved)="dragMove($event)">
     <img
+      [ngClass]="displayedImage.edit ? 'image-border' : null"
       [ngStyle]="{ position: 'absolute' }"
       [style.width.px] = 'displayedImage.size'
       [style.left.px] = 'displayedImage.x'
@@ -15,6 +16,7 @@
       (mousedown)="onMouseDown(index, $event)"
       (click)="onShowEdit(index, $event)">
     <span
+      class="image-controls"
       *ngIf="displayedImage.edit"
       [ngStyle]="{ position: 'absolute', cursor: 'pointer' }"
       [style.left.px] = 'displayedImage.x'

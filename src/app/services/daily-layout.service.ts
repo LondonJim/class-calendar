@@ -41,7 +41,7 @@ export class DailyLayoutService {
   }
 
   increasePosition(day, index) {
-    if (index < index.length - 1) {
+    if (index < this.dailyLayout[day].length - 1) {
       this.dailyLayout[day] = this.moveInArray(this.dailyLayout[day], index, index + 1);
       this.dailyLayoutChange.next(this.dailyLayout);
     }
