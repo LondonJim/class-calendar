@@ -40,14 +40,18 @@ export class DailyLayoutService {
     this.dailyLayoutChange.next(this.dailyLayout);
   }
 
-  increaseZ(day, index) {
-    this.dailyLayout[day][index].z = this.dailyLayout[day][index].z + 1;
-    this.dailyLayoutChange.next(this.dailyLayout);
+  increasePosition(day, index) {
+    if (index < index.length - 1) {
+      this.dailyLayout[day] = this.moveInArray(this.dailyLayout[day], index, index + 1);
+      this.dailyLayoutChange.next(this.dailyLayout);
+    }
   }
 
-  decreaseZ(day, index) {
-    this.dailyLayout[day][index].z = this.dailyLayout[day][index].z - 1;
-    this.dailyLayoutChange.next(this.dailyLayout);
+  decreasePosition(day, index) {
+    if (index > 0) {
+      this.dailyLayout[day] = this.moveInArray(this.dailyLayout[day], index, index - 1);
+      this.dailyLayoutChange.next(this.dailyLayout);
+    }
   }
 
   removeImage(day, index) {
@@ -64,5 +68,22 @@ export class DailyLayoutService {
   editModeToggle(day, index) {
     this.dailyLayout[day][index].edit = !this.dailyLayout[day][index].edit;
     this.dailyLayoutChange.next(this.dailyLayout);
+  }
+
+  moveInArray(arr, old_index, new_index) {
+    while (old_index < 0) {
+      old_index += arr.length;
+    }
+    while (new_index < 0) {
+      new_index += arr.length;
+    }
+    if (new_index >= arr.length) {
+      let k = new_index - arr.length;
+      while ((k--) + 1) {
+        arr.push(undefined);
+      }
+    }
+    arr.splice(new_index, 0, arr.splice(old_index, 1)[0]);
+    return arr;
   }
 }

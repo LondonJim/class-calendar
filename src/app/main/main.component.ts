@@ -55,12 +55,12 @@ export class MainComponent implements OnInit {
     this.dailyLayoutService.decreaseImageSize(this.day, index);
   }
 
-  onIncreaseZ(index) {
-    this.dailyLayoutService.increaseZ(this.day, index);
+  onIncreasePosition(index) {
+    this.dailyLayoutService.increasePosition(this.day, index);
   }
 
-  onDecreaseZ(index) {
-    this.dailyLayoutService.decreaseZ(this.day, index);
+  onDecreasePosition(index) {
+    this.dailyLayoutService.decreasePosition(this.day, index);
   }
 
   onRemove(index) {
