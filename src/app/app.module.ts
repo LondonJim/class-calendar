@@ -8,22 +8,24 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { MainComponent } from './main/main.component';
 import { HeaderComponent } from './header/header.component';
+import { DrawingCanvasComponent } from "./main/drawing-canvas/drawing-canvas.component";
 
 @NgModule({
   declarations: [
     AppComponent,
     SidebarComponent,
     MainComponent,
-    HeaderComponent
+    HeaderComponent,
+    DrawingCanvasComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     AngularSplitModule,
     DragDropModule,
-    MatIconModule
+    MatIconModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule { }
