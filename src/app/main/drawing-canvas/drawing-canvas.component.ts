@@ -1,4 +1,4 @@
-import { Component, Input, ElementRef, AfterViewInit, ViewChild } from '@angular/core';
+import {Component, ElementRef, AfterViewInit, ViewChild, HostListener} from '@angular/core';
 import { fromEvent } from 'rxjs';
 import { switchMap, takeUntil, pairwise } from 'rxjs/operators'
 
@@ -9,25 +9,53 @@ import { switchMap, takeUntil, pairwise } from 'rxjs/operators'
 })
 export class DrawingCanvasComponent implements AfterViewInit {
 
+  @HostListener('window:resize', [''])
+  //resize screen without stretching existing image, restores saved image back onto 'new' resized canvas
+  sizeChange() {
+    this.canvasEl.width = this.canvasEl.offsetWidth;
+    this.canvasEl.height = this.canvasEl.offsetHeight;
+    this.canvasEl.style.width = '100%';
+    this.canvasEl.style.height = '100%';
+    this.cx.lineWidth = 3;
+    this.cx.lineCap = 'round';
+    this.cx.strokeStyle = '#000';
+
+    let img = new Image();
+    img.src = this.existingCanvas;
+    this.cx.drawImage(img,0,0,img.width,img.height);
+  }
+  @HostListener('window:mouseup', [''])
+  //only save canvas image on mouse up (finish drawing)
+  mouseUp(){
+    this.existingCanvas = this.canvasEl.toDataURL();
+  }
+
   @ViewChild('canvas') public canvas: ElementRef;
+  canvasEl: HTMLCanvasElement;
+  existingCanvas: any
 
   private cx: CanvasRenderingContext2D;
 
   public ngAfterViewInit() {
-    const canvasEl: HTMLCanvasElement = this.canvas.nativeElement;
-    this.cx = canvasEl.getContext('2d');
+    this.canvasEl = this.canvas.nativeElement;
+    this.cx = this.canvasEl.getContext('2d');
 
-    canvasEl.style.width = '100%';
-    canvasEl.style.height = '100%';
+    this.canvasEl.style.width = '100%';
+    this.canvasEl.style.height = '100%';
 
-    canvasEl.width = canvasEl.offsetWidth;
-    canvasEl.height = canvasEl.offsetHeight;
+    this.canvasEl.width = this.canvasEl.offsetWidth;
+    this.canvasEl.height = this.canvasEl.offsetHeight;
 
     this.cx.lineWidth = 3;
     this.cx.lineCap = 'round';
     this.cx.strokeStyle = '#000';
 
-    this.captureEvents(canvasEl);
+    this.captureEvents(this.canvasEl);
+  }
+
+  private defineSizeCanvas() {
+    this.canvasEl.style.width = '100%';
+    this.canvasEl.style.height = '100%';
   }
 
   private captureEvents(canvasEl: HTMLCanvasElement) {
