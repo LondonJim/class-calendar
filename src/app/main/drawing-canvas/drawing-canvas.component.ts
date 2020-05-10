@@ -25,7 +25,7 @@ export class DrawingCanvasComponent implements AfterViewInit {
     this.cx.drawImage(img,0,0,img.width,img.height);
   }
   @HostListener('window:mouseup', [''])
-  //only save canvas image on mouse up (finish drawing)
+  //only save canvas image on mouse up (finish drawing stroke)
   mouseUp(){
     this.existingCanvas = this.canvasEl.toDataURL();
   }
@@ -65,7 +65,7 @@ export class DrawingCanvasComponent implements AfterViewInit {
           return fromEvent(canvasEl, 'mousemove')
             .pipe(
               takeUntil(fromEvent(canvasEl, 'mouseup')),
-              takeUntil(fromEvent(canvasEl, 'mouseleave')),
+              // takeUntil(fromEvent(canvasEl, 'mouseleave')), // if enabled it stops when you draw over an image
               pairwise()
             )
         })

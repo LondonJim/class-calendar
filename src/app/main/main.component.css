@@ -1,12 +1,12 @@
 .main {
-  height: 100vh;
-  background-color: azure;
+  height: 90vh;
+  background-color: white;
   position: relative;
 }
 
 .drawing-canvas {
   position: absolute;
-  height: 100vh;
+  height: 90vh;
   width: 100vw;
 }
 
