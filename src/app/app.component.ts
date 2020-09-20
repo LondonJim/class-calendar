@@ -8,4 +8,5 @@ import { SplitComponent, SplitAreaDirective } from 'angular-split';
 })
 export class AppComponent {
   title = 'class-calendar';
+  valueColor: string;
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import { DailyLayoutService } from "src/app/services/daily-layout.service";
 import { ScreenDisplayModel } from "../models/screen-display.model";
 
@@ -13,6 +13,7 @@ export class MainComponent implements OnInit {
   selectedIndex: number;
   selectedX: number;
   selectedY: number;
+  @Input() valueColor: string;
 
   constructor(private dailyLayoutService: DailyLayoutService) { }
 

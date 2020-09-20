@@ -4,10 +4,14 @@
 <div class="split-example" style="height: 90vh;">
   <as-split direction="horizontal" class="split-example ex-percent">
     <as-split-area size="30">
-      <app-sidebar></app-sidebar>
+      <app-sidebar
+        (valueColorEvent)="valueColor = $event">
+      </app-sidebar>
     </as-split-area>
     <as-split-area size="70">
-      <app-main></app-main>
+      <app-main
+        [valueColor]="valueColor">
+      </app-main>
     </as-split-area>
   </as-split>
 </div>

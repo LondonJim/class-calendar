@@ -1,4 +1,4 @@
-import {Component, ElementRef, AfterViewInit, ViewChild, HostListener} from '@angular/core';
+import {Component, ElementRef, AfterViewInit, ViewChild, HostListener, Input} from '@angular/core';
 import { fromEvent } from 'rxjs';
 import { switchMap, takeUntil, pairwise } from 'rxjs/operators'
 
@@ -8,7 +8,7 @@ import { switchMap, takeUntil, pairwise } from 'rxjs/operators'
   styleUrls: ['./drawing-canvas.component.css']
 })
 export class DrawingCanvasComponent implements AfterViewInit {
-  valueColor: string;
+  @Input() valueColor: string;
 
   @HostListener('window:resize', [''])
   //resize screen without stretching existing image, restores saved image back onto 'new' resized canvas

@@ -1,6 +1,8 @@
 <div class="main">
   <div class="drawing-canvas">
-    <app-drawing-canvas></app-drawing-canvas>
+    <app-drawing-canvas
+      [valueColor]="valueColor">
+    </app-drawing-canvas>
   </div>
   <div
     *ngFor='let displayedImage of displayedImages; index as index'

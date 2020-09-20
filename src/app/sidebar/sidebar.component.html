@@ -2,4 +2,11 @@
   <span *ngFor='let imageDetail of imageDetails'>
       <img style="width: 100px;" [src]="imageDetail.link" [alt]="imageDetail.tag" (click)="onAddImage(imageDetail.index)">
   </span>
+  {{valueColor}}
 </div>
+<github-picker
+  [(color)]="valueColor" [control]="githubControl"
+  style="position: fixed; bottom: 10px; left: 10px;">
+</github-picker>
+
+
