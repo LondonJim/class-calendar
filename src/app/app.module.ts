@@ -10,6 +10,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { MainComponent } from './main/main.component';
 import { HeaderComponent } from './header/header.component';
 import { DrawingCanvasComponent } from "./main/drawing-canvas/drawing-canvas.component";
+import { ColorPickerModule } from '@iplab/ngx-color-picker';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { DrawingCanvasComponent } from "./main/drawing-canvas/drawing-canvas.com
     DragDropModule,
     MatIconModule,
     MatButtonModule,
+    ColorPickerModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
