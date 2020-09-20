@@ -8,7 +8,7 @@ import { switchMap, takeUntil, pairwise } from 'rxjs/operators'
   styleUrls: ['./drawing-canvas.component.css']
 })
 export class DrawingCanvasComponent implements AfterViewInit {
-  @Input() valueColor: string;
+  @Input() paintBrush: {selectedColor: string, paintBrushSize: number};
 
   @HostListener('window:resize', [''])
   //resize screen without stretching existing image, restores saved image back onto 'new' resized canvas
@@ -17,9 +17,9 @@ export class DrawingCanvasComponent implements AfterViewInit {
     this.canvasEl.height = this.canvasEl.offsetHeight;
     this.canvasEl.style.width = '100%';
     this.canvasEl.style.height = '100%';
-    this.cx.lineWidth = 3;
+    this.cx.lineWidth = this.paintBrush.paintBrushSize;
     this.cx.lineCap = 'round';
-    this.cx.strokeStyle = this.valueColor;
+    this.cx.strokeStyle = this.paintBrush.selectedColor;
 
     let img = new Image();
     img.src = this.existingCanvas;
@@ -47,9 +47,9 @@ export class DrawingCanvasComponent implements AfterViewInit {
     this.canvasEl.width = this.canvasEl.offsetWidth;
     this.canvasEl.height = this.canvasEl.offsetHeight;
 
-    this.cx.lineWidth = 3;
+    this.cx.lineWidth = this.paintBrush.paintBrushSize;
     this.cx.lineCap = 'round';
-    this.cx.strokeStyle = this.valueColor;
+    this.cx.strokeStyle = this.paintBrush.selectedColor;
 
     this.captureEvents(this.canvasEl);
   }
@@ -84,7 +84,8 @@ export class DrawingCanvasComponent implements AfterViewInit {
           y: res[1].clientY - rect.top
         };
 
-        this.cx.strokeStyle = this.valueColor;
+        this.cx.lineWidth = this.paintBrush.paintBrushSize;
+        this.cx.strokeStyle = this.paintBrush.selectedColor;
         this.drawOnCanvas(prevPos, currentPos);
       });
   }

@@ -2,11 +2,29 @@
   <span *ngFor='let imageDetail of imageDetails'>
       <img style="width: 100px;" [src]="imageDetail.link" [alt]="imageDetail.tag" (click)="onAddImage(imageDetail.index)">
   </span>
-  {{valueColor}}
 </div>
-<github-picker
-  [(color)]="valueColor" [control]="githubControl"
-  style="position: fixed; bottom: 10px; left: 10px;">
-</github-picker>
-
+<div style="position: fixed; bottom: 10px; left: 10px;">
+  <div class="paint-brush-size-container">
+    <span *ngFor="let paintBrushSize of paintBrushSizes; index as i;">
+      <div
+        class="paint-brush-size-box"
+        (click)="onSelectBrushSize(paintBrushSize)">
+        <div
+          class="dot"
+          [ngStyle]="{
+            'width': paintBrushSize + 'px',
+            'height': paintBrushSize + 'px',
+            'background-color': valueColor,
+            'top': (18.75 - (paintBrushSize / 2)) + 'px',
+            'left': ((18.75 - (paintBrushSize / 2)) + 25 * i) + 'px'
+            }">
+        </div>
+      </div>
+    </span>
+  </div>
+  <github-picker
+    style="margin-top: 5px;"
+    [(color)]="valueColor" [control]="githubControl">
+  </github-picker>
+</div>
 

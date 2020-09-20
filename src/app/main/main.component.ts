@@ -13,7 +13,7 @@ export class MainComponent implements OnInit {
   selectedIndex: number;
   selectedX: number;
   selectedY: number;
-  @Input() valueColor: string;
+  @Input() paintBrush: { selectedColor: string, paintBrushSize: number };
 
   constructor(private dailyLayoutService: DailyLayoutService) { }
 

@@ -3,7 +3,7 @@ import { ImageDetails } from "src/assets/image-list";
 import { DailyLayoutService } from "src/app/services/daily-layout.service";
 import { ScreenDisplayModel } from "src/app/models/screen-display.model";
 import { ColorPickerControl } from "@iplab/ngx-color-picker";
-import {Subscribable, Subscription} from "rxjs";
+import { Subscription } from "rxjs";
 
 @Component({
   selector: 'app-sidebar',
@@ -12,13 +12,16 @@ import {Subscribable, Subscription} from "rxjs";
 })
 export class SidebarComponent implements OnInit {
   DEFAULT_COORDINATES = {  x: 100, y: 100, z: 100, size: 100, edit: false }
+  paintBrushSizes = [3, 5, 7, 9, 11, 13, 15, 17]
   imageDetails = ImageDetails;
   valueColor: string;
+  paintBrushSize: number = 3;
+  selectedColor: string = 'rgb(0,0,0)';
 
   public githubControl = new ColorPickerControl();
   valueColorSubscription: Subscription;
 
-  @Output() valueColorEvent = new EventEmitter<string>();
+  @Output() paintBrushEvent = new EventEmitter<{selectedColor: string, paintBrushSize: number}>();
 
   constructor(private dailyLayoutService: DailyLayoutService) { }
 
@@ -43,11 +46,21 @@ export class SidebarComponent implements OnInit {
       '#FFD700',
     ])
     this.valueColorSubscription = this.githubControl.valueChanges.subscribe((color) => {
-      let selectedColor: string;
-      selectedColor = `rgb(${color["rgba"].red},${color["rgba"].green},${color["rgba"].blue})`;
-      console.log(selectedColor)
-      this.valueColorEvent.emit(selectedColor);
+      this.selectedColor = `rgb(${color["rgba"].red},${color["rgba"].green},${color["rgba"].blue})`;
+      this.emitPaintBrush();
     })
+    this.emitPaintBrush();
+  }
+
+  onSelectBrushSize(paintBrushSize) {
+    this.paintBrushSize = paintBrushSize;
+    this.emitPaintBrush()
+  }
+
+  emitPaintBrush() {
+    console.log(this.selectedColor)
+    console.log(this.paintBrushSize)
+    this.paintBrushEvent.emit({selectedColor: this.selectedColor, paintBrushSize: this.paintBrushSize});
   }
 
   onAddImage(selectedImageIndex) {

@@ -2,3 +2,28 @@
   height: 100vh;
   background-color: beige;
 }
+
+.paint-brush-size-box {
+  display: inline-block;
+  width: 21px;
+  height: 21px;
+  border: 2px solid #fff;
+  box-shadow: rgba(0,0,0,.2) 0 0 5px 2px;
+}
+
+.paint-brush-size-container {
+  display: block;
+  background: #fff;
+  width: 200px;
+  border: 1px solid rgba(0,0,0,.2);
+  box-shadow: rgba(0,0,0,.15) 0 3px 12px;
+  border-radius: 4px;
+  padding: 5px 5px 1px 5px;
+}
+
+.dot {
+  background-color: #000;
+  border-radius: 50%;
+  display: inline-block;
+  position: absolute;
+}
