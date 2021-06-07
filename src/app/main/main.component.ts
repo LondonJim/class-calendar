@@ -9,15 +9,18 @@ import { ScreenDisplayModel } from "../models/screen-display.model";
 })
 export class MainComponent implements OnInit {
   displayedImages: ScreenDisplayModel[];
-  day = 'monday'; // TODO change so multiple days can be selected
+  day: string; // TODO change so multiple days can be selected
   selectedIndex: number;
   selectedX: number;
   selectedY: number;
+  days = ['monday','tuesday','wednesday','thursday','friday']
   @Input() paintBrush: { selectedColor: string, paintBrushSize: number };
 
   constructor(private dailyLayoutService: DailyLayoutService) { }
 
   ngOnInit(): void {
+    const date = new Date();
+    this.day = this.days[date.getDay()];
     this.dailyLayoutService.dailyLayoutChange.subscribe(value => {
       this.displayedImages = value[this.day];
     });

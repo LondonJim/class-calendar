@@ -1,5 +1,4 @@
 import {Component} from '@angular/core';
-import { SplitComponent, SplitAreaDirective } from 'angular-split';
 
 @Component({
   selector: 'app-root',

@@ -8,6 +8,7 @@
     <span *ngFor="let paintBrushSize of paintBrushSizes; index as i;">
       <div
         class="paint-brush-size-box"
+        [ngStyle]="{'box-shadow': this.selectedPaintBrushSize === paintBrushSize ? 'inset 0px 0px 0px 1px black' : null}"
         (click)="onSelectBrushSize(paintBrushSize)">
         <div
           class="dot"

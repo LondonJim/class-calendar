@@ -14,6 +14,7 @@ export class DailyLayoutService {
     thursday: [],
     friday: []
   }
+  DAYS_OF_WEEK = ['monday','tuesday','wednesday','thursday','friday'];
   // TODO read cookie to prefill starting value
   dailyLayout: DaysModel = this.STARTING_VALUE;
   dailyLayoutChange: Subject<DaysModel> = new Subject<DaysModel>();

@@ -1,4 +1,13 @@
 .header {
   height: 10vh;
   background-color: bisque;
+  display: flex;
+  justify-content: space-between;
+}
+
+.day-button {
+  font-size: 20px;
+  font: 20px Monaco;
+  width: 140px;
+  margin: 20px 20px 20px 20px;
 }

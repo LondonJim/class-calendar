@@ -15,7 +15,7 @@ export class SidebarComponent implements OnInit {
   paintBrushSizes = [3, 5, 7, 9, 11, 13, 15, 17]
   imageDetails = ImageDetails;
   valueColor: string;
-  paintBrushSize: number = 3;
+  selectedPaintBrushSize: number = 3;
   selectedColor: string = 'rgb(0,0,0)';
 
   public githubControl = new ColorPickerControl();
@@ -53,14 +53,14 @@ export class SidebarComponent implements OnInit {
   }
 
   onSelectBrushSize(paintBrushSize) {
-    this.paintBrushSize = paintBrushSize;
+    this.selectedPaintBrushSize = paintBrushSize;
     this.emitPaintBrush()
   }
 
   emitPaintBrush() {
     console.log(this.selectedColor)
-    console.log(this.paintBrushSize)
-    this.paintBrushEvent.emit({selectedColor: this.selectedColor, paintBrushSize: this.paintBrushSize});
+    console.log(this.selectedPaintBrushSize)
+    this.paintBrushEvent.emit({selectedColor: this.selectedColor, paintBrushSize: this.selectedPaintBrushSize});
   }
 
   onAddImage(selectedImageIndex) {
