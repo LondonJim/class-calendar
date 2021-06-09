@@ -71,7 +71,7 @@ export class DailyLayoutService {
   }
 
   removeImage(index) {
-    this.dailyLayout[this.selectedDay].splice(index, 1);
+    this.dailyLayout[this.selectedDay].images.splice(index, 1);
     this.dailyLayoutChange.next(this.dailyLayout);
   }
 
