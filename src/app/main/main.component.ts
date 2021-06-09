@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, Input, OnInit, ViewChild} from '@angular/core';
 import { DailyLayoutService } from "src/app/services/daily-layout.service";
 import { ScreenDisplayModel } from "../models/screen-display.model";
 import {DrawingCanvasComponent} from "./drawing-canvas/drawing-canvas.component";
@@ -8,9 +8,8 @@ import {DrawingCanvasComponent} from "./drawing-canvas/drawing-canvas.component"
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.css']
 })
-export class MainComponent implements OnInit {
+export class MainComponent implements OnInit, AfterViewInit {
   displayedImages: ScreenDisplayModel[];
-  displayedCanvas: string;
   selectedIndex: number;
   selectedX: number;
   selectedY: number;
@@ -28,6 +27,16 @@ export class MainComponent implements OnInit {
     this.dailyLayoutService.dailyLayoutChange.subscribe(value => {
       this.displayedImages = value[this.dailyLayoutService.selectedDay].images;
     });
+  }
+
+  ngAfterViewInit() {
+    const images = this.dailyLayoutService.dailyLayout[this.dailyLayoutService.selectedDay].images;
+    const canvas = this.dailyLayoutService.dailyLayout[this.dailyLayoutService.selectedDay].canvas;
+
+    setTimeout(() => {
+      if (images) this.displayedImages = this.dailyLayoutService.dailyLayout[this.dailyLayoutService.selectedDay].images;
+      if (canvas) this.drawingCanvas.drawCanvas(this.dailyLayoutService.dailyLayout[this.dailyLayoutService.selectedDay].canvas)
+    })
   }
 
   saveCanvasData(canvas) {

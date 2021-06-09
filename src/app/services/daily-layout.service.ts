@@ -28,7 +28,6 @@ export class DailyLayoutService {
     this.dailyLayoutChange.subscribe((value) => {
       this.dailyLayout = value;
     });
-    this.selectDay(this.selectedDay);
   }
 
   selectDay(selectedDay) {
