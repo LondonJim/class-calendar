@@ -12,10 +12,10 @@ export class HeaderComponent implements OnInit {
   constructor(private dailyLayoutService: DailyLayoutService) { }
 
   ngOnInit(): void {
-    this.days = this.dailyLayoutService.DAYS_OF_WEEK;
+    this.days = this.dailyLayoutService.DAYS_OF_WEEK.slice(1, -1);
   }
 
-  selectDay(event) {
-    console.log(event)
+  selectDay(day) {
+    this.dailyLayoutService.selectDay(day);
   }
 }

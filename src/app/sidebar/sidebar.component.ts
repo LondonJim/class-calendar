@@ -58,14 +58,12 @@ export class SidebarComponent implements OnInit {
   }
 
   emitPaintBrush() {
-    console.log(this.selectedColor)
-    console.log(this.selectedPaintBrushSize)
     this.paintBrushEvent.emit({selectedColor: this.selectedColor, paintBrushSize: this.selectedPaintBrushSize});
   }
 
   onAddImage(selectedImageIndex) {
     const imageDetails = this.imageDetails.filter(({ index }) => index === selectedImageIndex)
     const newImage: ScreenDisplayModel = { ...imageDetails[0], ...this.DEFAULT_COORDINATES };
-    this.dailyLayoutService.addImage('monday', newImage)
+    this.dailyLayoutService.addImage(newImage);
   }
 }

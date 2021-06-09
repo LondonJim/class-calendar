@@ -1,7 +1,8 @@
 <div class="main">
   <div class="drawing-canvas">
     <app-drawing-canvas
-      [paintBrush]="paintBrush">
+      [paintBrush]="paintBrush"
+      (saveCanvasData)="saveCanvasData($event)">
     </app-drawing-canvas>
   </div>
   <div

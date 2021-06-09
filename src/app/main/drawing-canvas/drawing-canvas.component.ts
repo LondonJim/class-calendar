@@ -1,4 +1,13 @@
-import {Component, ElementRef, AfterViewInit, ViewChild, HostListener, Input} from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  AfterViewInit,
+  ViewChild,
+  HostListener,
+  Input,
+  Output,
+  EventEmitter
+} from '@angular/core';
 import { fromEvent } from 'rxjs';
 import { switchMap, takeUntil, pairwise } from 'rxjs/operators'
 
@@ -9,6 +18,7 @@ import { switchMap, takeUntil, pairwise } from 'rxjs/operators'
 })
 export class DrawingCanvasComponent implements AfterViewInit {
   @Input() paintBrush: {selectedColor: string, paintBrushSize: number};
+  @Output() saveCanvasData = new EventEmitter<string>();
 
   @HostListener('window:resize', [''])
   //resize screen without stretching existing image, restores saved image back onto 'new' resized canvas
@@ -25,11 +35,6 @@ export class DrawingCanvasComponent implements AfterViewInit {
     img.src = this.existingCanvas;
     this.cx.drawImage(img,0,0,img.width,img.height);
   }
-  @HostListener('window:mouseup', [''])
-  //only save canvas image on mouse up (finish drawing stroke)
-  mouseUp(){
-    this.existingCanvas = this.canvasEl.toDataURL();
-  }
 
   @ViewChild('canvas') public canvas: ElementRef;
   canvasEl: HTMLCanvasElement;
@@ -38,6 +43,36 @@ export class DrawingCanvasComponent implements AfterViewInit {
   private cx: CanvasRenderingContext2D;
 
   public ngAfterViewInit() {
+    this.setCanvas();
+    this.captureEvents(this.canvasEl);
+    document.getElementById('canvas').addEventListener('mouseup', e => {
+      this.existingCanvas = this.canvasEl.toDataURL();
+      this.saveCanvasData.emit(this.canvasEl.toDataURL());
+    })
+  }
+
+  public resetCanvas(){
+    this.cx.clearRect(0, 0, this.canvasEl.offsetWidth, this.canvasEl.offsetWidth);
+  }
+
+  public drawCanvas(value){
+    this.canvasEl.width = this.canvasEl.offsetWidth;
+    this.canvasEl.height = this.canvasEl.offsetHeight;
+    this.canvasEl.style.width = '100%';
+    this.canvasEl.style.height = '100%';
+    this.cx.lineWidth = this.paintBrush.paintBrushSize;
+    this.cx.lineCap = 'round';
+    this.cx.strokeStyle = this.paintBrush.selectedColor;
+    if (value) {
+      let img = new Image();
+      img.onload = () => {
+        this.cx.drawImage(img,0,0,img.width,img.height);
+      }
+      img.src = value ? value : null;
+    }
+  }
+
+  private setCanvas() {
     this.canvasEl = this.canvas.nativeElement;
     this.cx = this.canvasEl.getContext('2d');
 
@@ -50,8 +85,6 @@ export class DrawingCanvasComponent implements AfterViewInit {
     this.cx.lineWidth = this.paintBrush.paintBrushSize;
     this.cx.lineCap = 'round';
     this.cx.strokeStyle = this.paintBrush.selectedColor;
-
-    this.captureEvents(this.canvasEl);
   }
 
   private defineSizeCanvas() {

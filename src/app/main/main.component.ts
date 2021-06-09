@@ -1,6 +1,7 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import { DailyLayoutService } from "src/app/services/daily-layout.service";
 import { ScreenDisplayModel } from "../models/screen-display.model";
+import {DrawingCanvasComponent} from "./drawing-canvas/drawing-canvas.component";
 
 @Component({
   selector: 'app-main',
@@ -9,26 +10,33 @@ import { ScreenDisplayModel } from "../models/screen-display.model";
 })
 export class MainComponent implements OnInit {
   displayedImages: ScreenDisplayModel[];
-  day: string; // TODO change so multiple days can be selected
+  displayedCanvas: string;
   selectedIndex: number;
   selectedX: number;
   selectedY: number;
-  days = ['monday','tuesday','wednesday','thursday','friday']
   @Input() paintBrush: { selectedColor: string, paintBrushSize: number };
+  @ViewChild(DrawingCanvasComponent) drawingCanvas;
 
   constructor(private dailyLayoutService: DailyLayoutService) { }
 
   ngOnInit(): void {
-    const date = new Date();
-    this.day = this.days[date.getDay()];
+    this.dailyLayoutService.selectedDayChange.subscribe(value => {
+      this.drawingCanvas.resetCanvas();
+      this.drawingCanvas.drawCanvas(this.dailyLayoutService.dailyLayout[this.dailyLayoutService.selectedDay].canvas)
+      this.displayedImages = this.dailyLayoutService.dailyLayout[this.dailyLayoutService.selectedDay].images;
+    })
     this.dailyLayoutService.dailyLayoutChange.subscribe(value => {
-      this.displayedImages = value[this.day];
+      this.displayedImages = value[this.dailyLayoutService.selectedDay].images;
     });
+  }
+
+  saveCanvasData(canvas) {
+    this.dailyLayoutService.saveCanvasData(canvas);
   }
 
   dragEnd(event, displayedImage, index) {
     const element = event.source.getRootElement();
-    this.dailyLayoutService.updatePostion(this.day, event.distance.x, event.distance.y, index);
+    this.dailyLayoutService.updatePostion(event.distance.x, event.distance.y, index);
     element.style.transform = 'translate3d(0,0,0)';
   }
 
@@ -47,27 +55,27 @@ export class MainComponent implements OnInit {
 
   onShowEdit(index, event) {
     if (this.selectedIndex === index && this.selectedX === event.target.offsetLeft && this.selectedY === event.target.offsetTop) {
-      this.dailyLayoutService.editModeToggle(this.day, index);
+      this.dailyLayoutService.editModeToggle(index);
     }
   }
 
   onIncrease(index) {
-    this.dailyLayoutService.increaseImageSize(this.day, index);
+    this.dailyLayoutService.increaseImageSize(index);
   }
 
   onDecrease(index) {
-    this.dailyLayoutService.decreaseImageSize(this.day, index);
+    this.dailyLayoutService.decreaseImageSize(index);
   }
 
   onIncreasePosition(index) {
-    this.dailyLayoutService.increasePosition(this.day, index);
+    this.dailyLayoutService.increasePosition(index);
   }
 
   onDecreasePosition(index) {
-    this.dailyLayoutService.decreasePosition(this.day, index);
+    this.dailyLayoutService.decreasePosition(index);
   }
 
   onRemove(index) {
-    this.dailyLayoutService.removeImage(this.day, index);
+    this.dailyLayoutService.removeImage(index);
   }
 }
