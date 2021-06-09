@@ -7,7 +7,7 @@ import { ScreenDisplayModel } from "../models/screen-display.model";
   providedIn: 'root'
 })
 export class DailyLayoutService {
-  STARTING_VALUE = {
+  STARTING_VALUE = JSON.parse(localStorage.getItem('classCalendar')) || {
     monday: {images: [], canvas: null},
     tuesday: {images: [], canvas: null},
     wednesday: {images: [], canvas: null},
@@ -25,10 +25,10 @@ export class DailyLayoutService {
     const date = new Date();
     const dayNumber = this.DAYS_OF_WEEK[date.getDay()];
     this.selectedDay = dayNumber === 'sunday' || dayNumber === 'saturday' ? 'monday' : this.DAYS_OF_WEEK[date.getDay()];
-
     this.dailyLayoutChange.subscribe((value) => {
       this.dailyLayout = value;
     });
+    this.selectDay(this.selectedDay);
   }
 
   selectDay(selectedDay) {
@@ -39,6 +39,7 @@ export class DailyLayoutService {
   saveCanvasData(canvasData: string) {
     this.dailyLayout[this.selectedDay].canvas = canvasData;
     this.dailyLayoutChange.next(this.dailyLayout);
+    localStorage.setItem('classCalendar', JSON.stringify(this.dailyLayout));
   }
 
   addImage(image: ScreenDisplayModel) {
