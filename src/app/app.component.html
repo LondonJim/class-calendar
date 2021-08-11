@@ -5,14 +5,16 @@
 </div>
 <div class="split-example" style="height: 90vh;">
   <as-split direction="horizontal" class="split-example ex-percent">
-    <as-split-area size="30">
+    <as-split-area size="14">
       <app-sidebar
-        (paintBrushEvent)="paintBrush = $event">
+        (paintBrushEvent)="paintBrush = $event"
+        (deleteDrawing)="deleteDrawing = $event">
       </app-sidebar>
     </as-split-area>
-    <as-split-area size="70">
+    <as-split-area size="86">
       <app-main
-        [paintBrush]="paintBrush">
+        [paintBrush]="paintBrush"
+        [deleteDrawing]="deleteDrawing">
       </app-main>
     </as-split-area>
   </as-split>

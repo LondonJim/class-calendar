@@ -15,11 +15,24 @@ export class MainComponent implements OnInit, AfterViewInit {
   selectedY: number;
   @Input() paintBrush: { selectedColor: string, paintBrushSize: number };
   @ViewChild(DrawingCanvasComponent) drawingCanvas;
+  _deleteDrawing: boolean;
+  @Input() set deleteDrawing (deleteDrawing: boolean) {
+    if (deleteDrawing) {
+      this._deleteDrawing = deleteDrawing;
+      this.drawingCanvas.resetCanvas();
+      this.saveCanvasData(null);
+      this.deleteDrawing = false;
+    }
+  }
+  get deleteDrawing(){
+    return this._deleteDrawing;
+  }
 
   constructor(private dailyLayoutService: DailyLayoutService) { }
 
   ngOnInit(): void {
     this.dailyLayoutService.selectedDayChange.subscribe(value => {
+      console.log('change')
       this.drawingCanvas.resetCanvas();
       this.drawingCanvas.drawCanvas(this.dailyLayoutService.dailyLayout[this.dailyLayoutService.selectedDay].canvas)
       this.displayedImages = this.dailyLayoutService.dailyLayout[this.dailyLayoutService.selectedDay].images;

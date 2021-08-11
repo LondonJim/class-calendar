@@ -3,8 +3,18 @@
       <img style="width: 100px;" [src]="imageDetail.link" [alt]="imageDetail.tag" (click)="onAddImage(imageDetail.index)">
   </span>
 </div>
+<div style="position: fixed; bottom: 119px; left: 10px;">
+  <div class="group-container icon-spread">
+    <mat-icon matTooltip="Undo last draw" class="icon-select">undo</mat-icon>
+    <mat-icon matTooltip="Delete all" class="icon-select">delete_forever</mat-icon>
+    <mat-icon matTooltip="Delete drawing" (click)="onDeleteDrawing()" class="icon-select">clear</mat-icon>
+    <mat-icon matTooltip="Delete images" class="icon-select">layers_clear</mat-icon>
+    <mat-icon matTooltip="Eraser" class="icon-select">format_color_reset</mat-icon>
+    <mat-icon matTooltip="Fill with colour" class="icon-select">format_color_fill</mat-icon>
+  </div>
+</div>
 <div style="position: fixed; bottom: 10px; left: 10px;">
-  <div class="paint-brush-size-container">
+  <div class="group-container">
     <span *ngFor="let paintBrushSize of paintBrushSizes; index as i;">
       <div
         class="paint-brush-size-box"

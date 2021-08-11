@@ -8,4 +8,5 @@ import {Component} from '@angular/core';
 export class AppComponent {
   title = 'class-calendar';
   paintBrush: {selectedColor: string, paintBrushSize: number};
+  deleteDrawing: boolean;
 }

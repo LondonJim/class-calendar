@@ -9,9 +9,10 @@
   height: 21px;
   border: 2px solid #fff;
   box-shadow: rgba(0,0,0,.2) 0 0 5px 2px;
+  cursor: pointer;
 }
 
-.paint-brush-size-container {
+.group-container {
   display: block;
   background: #fff;
   width: 200px;
@@ -26,4 +27,15 @@
   border-radius: 50%;
   display: inline-block;
   position: absolute;
+}
+
+.icon-spread {
+  display: flex;
+  justify-content: space-evenly;
+  height: 32px;
+}
+
+.icon-select{
+  font-size: 30px;
+  cursor: pointer;
 }

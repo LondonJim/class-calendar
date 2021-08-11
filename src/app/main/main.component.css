@@ -2,6 +2,7 @@
   height: 90vh;
   background-color: white;
   position: relative;
+  cursor: crosshair;
 }
 
 .drawing-canvas {

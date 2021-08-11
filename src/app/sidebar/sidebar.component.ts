@@ -22,6 +22,7 @@ export class SidebarComponent implements OnInit {
   valueColorSubscription: Subscription;
 
   @Output() paintBrushEvent = new EventEmitter<{selectedColor: string, paintBrushSize: number}>();
+  @Output() deleteDrawing = new EventEmitter();
 
   constructor(private dailyLayoutService: DailyLayoutService) { }
 
@@ -65,5 +66,10 @@ export class SidebarComponent implements OnInit {
     const imageDetails = this.imageDetails.filter(({ index }) => index === selectedImageIndex)
     const newImage: ScreenDisplayModel = { ...imageDetails[0], ...this.DEFAULT_COORDINATES };
     this.dailyLayoutService.addImage(newImage);
+  }
+
+  onDeleteDrawing() {
+    this.deleteDrawing.emit(true);
+    // this.dailyLayoutService.saveCanvasData(null);
   }
 }
