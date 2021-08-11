@@ -70,6 +70,14 @@ export class SidebarComponent implements OnInit {
 
   onDeleteDrawing() {
     this.deleteDrawing.emit(true);
-    // this.dailyLayoutService.saveCanvasData(null);
+  }
+
+  onDeleteImages() {
+    this.dailyLayoutService.deleteImages();
+  }
+
+  onDeleteAll() {
+    this.deleteDrawing.emit(true);
+    this.dailyLayoutService.deleteImages();
   }
 }

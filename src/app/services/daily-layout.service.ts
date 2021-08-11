@@ -75,6 +75,11 @@ export class DailyLayoutService {
     this.dailyLayoutChange.next(this.dailyLayout);
   }
 
+  deleteImages() {
+    this.dailyLayout[this.selectedDay].images = [];
+    this.dailyLayoutChange.next(this.dailyLayout);
+  }
+
   updatePostion(newX, newY, index) {
     this.dailyLayout[this.selectedDay].images[index].x = this.dailyLayout[this.selectedDay].images[index].x + newX;
     this.dailyLayout[this.selectedDay].images[index].y = this.dailyLayout[this.selectedDay].images[index].y + newY;
