@@ -3,12 +3,12 @@ import {
   ElementRef,
   AfterViewInit,
   ViewChild,
-  HostListener,
   Input,
   Output,
-  EventEmitter
+  EventEmitter, OnInit, OnDestroy
 } from '@angular/core';
-import { fromEvent } from 'rxjs';
+import { DailyLayoutService } from "src/app/services/daily-layout.service";
+import {fromEvent, Subscription} from 'rxjs';
 import { switchMap, takeUntil, pairwise } from 'rxjs/operators'
 
 @Component({
@@ -16,13 +16,17 @@ import { switchMap, takeUntil, pairwise } from 'rxjs/operators'
   templateUrl: './drawing-canvas.component.html',
   styleUrls: ['./drawing-canvas.component.css']
 })
-export class DrawingCanvasComponent implements AfterViewInit {
+export class DrawingCanvasComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() paintBrush: {selectedColor: string, paintBrushSize: number};
   @Output() saveCanvasData = new EventEmitter<string>();
 
-  @HostListener('window:resize', [''])
-  //resize screen without stretching existing image, restores saved image back onto 'new' resized canvas
+  displayFullScreen: boolean;
+  fullScreenSub: Subscription;
+
+  constructor(private dailyLayoutService: DailyLayoutService) { }
+
   sizeChange() {
+  //  resize screen without stretching existing image, restores saved image back onto 'new' resized canvas
     this.canvasEl.width = this.canvasEl.offsetWidth;
     this.canvasEl.height = this.canvasEl.offsetHeight;
     this.canvasEl.style.width = '100%';
@@ -30,23 +34,24 @@ export class DrawingCanvasComponent implements AfterViewInit {
     this.cx.lineWidth = this.paintBrush.paintBrushSize;
     this.cx.lineCap = 'round';
     this.cx.strokeStyle = this.paintBrush.selectedColor;
-
-    let img = new Image();
-    img.src = this.existingCanvas;
-    this.cx.drawImage(img,0,0,img.width,img.height);
   }
 
   @ViewChild('canvas') public canvas: ElementRef;
   canvasEl: HTMLCanvasElement;
-  existingCanvas: any
 
   private cx: CanvasRenderingContext2D;
+
+  ngOnInit() {
+    this.displayFullScreen = this.dailyLayoutService.fullScreen;
+    this.fullScreenSub = this.dailyLayoutService.fullScreenChange.subscribe(value => {
+      this.displayFullScreen = value;
+    })
+  }
 
   public ngAfterViewInit() {
     this.setCanvas();
     this.captureEvents(this.canvasEl);
     document.getElementById('canvas').addEventListener('mouseup', e => {
-      this.existingCanvas = this.canvasEl.toDataURL();
       this.saveCanvasData.emit(this.canvasEl.toDataURL());
     })
   }
@@ -119,7 +124,9 @@ export class DrawingCanvasComponent implements AfterViewInit {
 
         this.cx.lineWidth = this.paintBrush.paintBrushSize;
         this.cx.strokeStyle = this.paintBrush.selectedColor;
-        this.drawOnCanvas(prevPos, currentPos);
+        if (!this.displayFullScreen) {
+          this.drawOnCanvas(prevPos, currentPos);
+        }
       });
   }
 
@@ -133,6 +140,10 @@ export class DrawingCanvasComponent implements AfterViewInit {
       this.cx.lineTo(currentPos.x, currentPos.y);
       this.cx.stroke();
     }
+  }
+
+  ngOnDestroy() {
+    this.fullScreenSub.unsubscribe();
   }
 
 }

@@ -20,6 +20,8 @@ export class DailyLayoutService {
   dailyLayoutChange: Subject<DaysModel> = new Subject<DaysModel>();
   selectedDay: string;
   selectedDayChange: Subject<string> = new Subject<string>();
+  fullScreen: boolean;
+  fullScreenChange: Subject<boolean> = new Subject<boolean>();
 
   constructor()  {
     const date = new Date();
@@ -28,6 +30,11 @@ export class DailyLayoutService {
     this.dailyLayoutChange.subscribe((value) => {
       this.dailyLayout = value;
     });
+  }
+
+  displayFullScreen(isFullScreen) {
+    this.fullScreen = isFullScreen;
+    this.fullScreenChange.next(this.fullScreen)
   }
 
   selectDay(selectedDay) {

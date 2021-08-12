@@ -3,6 +3,11 @@
       <img style="width: 100px;" [src]="imageDetail.link" [alt]="imageDetail.tag" (click)="onAddImage(imageDetail.index)">
   </span>
 </div>
+<div style="position: fixed; bottom: 164px; left: 10px; text-align: center; padding-bottom: 5px;" class="group-container">
+ <button mat-raised-button color="primary" style="width: 100%;" (click)="onDisplayFullScreen(true)">
+   DISPLAY
+ </button>
+</div>
 <div style="position: fixed; bottom: 119px; left: 10px;">
   <div class="group-container icon-spread">
     <mat-icon matTooltip="Undo last draw" class="icon-select">undo</mat-icon>

@@ -46,17 +46,26 @@ export class MainComponent implements OnInit, AfterViewInit {
     this.cursorBox.nativeElement.style.visibility = 'hidden';
   }
 
+  @HostListener('window:resize', ['']) sizeChange() {
+    this.resetCanvas();
+    this.drawingCanvas.sizeChange();
+  }
+
   constructor(private dailyLayoutService: DailyLayoutService) { }
 
   ngOnInit(): void {
     this.dailyLayoutService.selectedDayChange.subscribe(value => {
-      this.drawingCanvas.resetCanvas();
-      this.drawingCanvas.drawCanvas(this.dailyLayoutService.dailyLayout[this.dailyLayoutService.selectedDay].canvas)
+      this.resetCanvas();
       this.displayedImages = this.dailyLayoutService.dailyLayout[this.dailyLayoutService.selectedDay].images;
     })
     this.dailyLayoutService.dailyLayoutChange.subscribe(value => {
       this.displayedImages = value[this.dailyLayoutService.selectedDay].images;
     });
+  }
+
+  resetCanvas() {
+    this.drawingCanvas.resetCanvas();
+    this.drawingCanvas.drawCanvas(this.dailyLayoutService.dailyLayout[this.dailyLayoutService.selectedDay].canvas)
   }
 
   ngAfterViewInit() {

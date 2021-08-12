@@ -69,6 +69,10 @@ export class SidebarComponent implements OnInit {
     this.dailyLayoutService.addImage(newImage);
   }
 
+  onDisplayFullScreen(isDisplayFullScreen) {
+    this.dailyLayoutService.displayFullScreen(isDisplayFullScreen);
+  }
+
   onDeleteDrawing() {
     Swal.fire({
       title: 'Do you want to delete the drawing?',

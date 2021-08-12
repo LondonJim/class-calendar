@@ -1,11 +1,15 @@
-<div>
+<div *ngIf="displayFullScreen" style="position: absolute; right: 10px; top: 10px; z-index: 101;">
+  <button mat-raised-button (click)="onDisplayFullScreen(false);">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+<div *ngIf="!displayFullScreen">
   <app-header>
-
   </app-header>
 </div>
-<div class="split-example" style="height: 90vh;">
+<div *ngIf="!displayFullScreen" class="split-example" style="height: 90vh;">
   <as-split direction="horizontal" class="split-example ex-percent" unit="pixel">
-    <as-split-area size="228">
+    <as-split-area [size]="displayFullScreen ? 0 : 228">
       <app-sidebar
         (paintBrushEvent)="paintBrush = $event"
         (deleteDrawing)="deleteDrawing = $event">
@@ -13,9 +17,17 @@
     </as-split-area>
     <as-split-area size="'*'">
       <app-main
+        style="z-index: 100;"
         [paintBrush]="paintBrush"
         [deleteDrawing]="deleteDrawing">
       </app-main>
     </as-split-area>
   </as-split>
+</div>
+<div *ngIf="displayFullScreen" style="height: 100vh;">
+  <app-main
+    style="z-index: 100;"
+    [paintBrush]="paintBrush"
+    [deleteDrawing]="deleteDrawing">
+  </app-main>
 </div>
