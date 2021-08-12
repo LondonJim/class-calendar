@@ -60,6 +60,7 @@ export class SidebarComponent implements OnInit {
   }
 
   emitPaintBrush() {
+    console.log(this.selectedColor)
     this.paintBrushEvent.emit({selectedColor: this.selectedColor, paintBrushSize: this.selectedPaintBrushSize});
   }
 
