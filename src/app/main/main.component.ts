@@ -46,7 +46,6 @@ export class MainComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.dailyLayoutService.selectedDayChange.subscribe(value => {
-      console.log('change')
       this.drawingCanvas.resetCanvas();
       this.drawingCanvas.drawCanvas(this.dailyLayoutService.dailyLayout[this.dailyLayoutService.selectedDay].canvas)
       this.displayedImages = this.dailyLayoutService.dailyLayout[this.dailyLayoutService.selectedDay].images;
