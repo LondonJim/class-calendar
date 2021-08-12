@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, Input, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, HostListener, Input, OnInit, ViewChild} from '@angular/core';
 import { DailyLayoutService } from "src/app/services/daily-layout.service";
 import { ScreenDisplayModel } from "../models/screen-display.model";
 import {DrawingCanvasComponent} from "./drawing-canvas/drawing-canvas.component";
@@ -26,6 +26,20 @@ export class MainComponent implements OnInit, AfterViewInit {
   }
   get deleteDrawing(){
     return this._deleteDrawing;
+  }
+  @ViewChild('cursorBox') cursorBox: ElementRef;
+
+  @HostListener('mousemove', ['$event']) onMouseMove(e) {
+    if (e.path[0].id === 'canvas') {
+      this.cursorBox.nativeElement.style.visibility = 'visible';
+      this.cursorBox.nativeElement.style.top = e.offsetY + 'px';
+      this.cursorBox.nativeElement.style.left = e.offsetX + 'px';
+      this.cursorBox.nativeElement.style.width = this.paintBrush.paintBrushSize + 'px';
+      this.cursorBox.nativeElement.style.height = this.paintBrush.paintBrushSize + 'px';
+      this.cursorBox.nativeElement.style.backgroundColor = this.paintBrush.selectedColor;
+    } else {
+      this.cursorBox.nativeElement.style.visibility = 'hidden';
+    }
   }
 
   constructor(private dailyLayoutService: DailyLayoutService) { }

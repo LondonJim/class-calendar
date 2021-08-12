@@ -4,6 +4,10 @@
       [paintBrush]="paintBrush"
       (saveCanvasData)="saveCanvasData($event)">
     </app-drawing-canvas>
+    <div
+      #cursorBox
+      class="cursor">
+    </div>
   </div>
   <div
     *ngFor='let displayedImage of displayedImages; index as index'
