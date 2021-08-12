@@ -1,0 +1,7 @@
+::ng-deep .as-split-gutter{
+  background: #FFE400 !important;
+}
+
+::ng-deep .as-split-gutter-icon{
+  mix-blend-mode: difference;
+}

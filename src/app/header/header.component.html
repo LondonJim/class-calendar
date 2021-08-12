@@ -2,7 +2,7 @@
   <ng-container *ngFor="let day of days">
     <button
       class="day-button"
-      [ngStyle]="{'box-shadow': selectedDay === day ? '0 0 0 3pt #3a0f4c' : null, 'background-color': selectedDay === day ? '#b14bdc' : null}"
+      [ngStyle]="{'box-shadow': selectedDay === day ? '0 0 0 3pt #FFE400' : null, 'background-color': selectedDay === day ? '#14A76C' : '#FF652F'}"
       [value]="day"
       mat-raised-button color="primary"
       (click)="selectDay(day)">

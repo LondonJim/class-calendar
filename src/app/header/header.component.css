@@ -1,8 +1,9 @@
 .header {
   height: 10vh;
-  background-color: bisque;
+  background-color: #272727;
   display: flex;
   justify-content: space-between;
+  border-bottom: 5px solid #FFE400;
 }
 
 .day-button {
@@ -10,4 +11,5 @@
   font: 20px Monaco;
   width: 140px;
   margin: 20px 20px 20px 20px;
+  color: black;
 }
