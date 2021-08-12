@@ -42,6 +42,10 @@ export class MainComponent implements OnInit, AfterViewInit {
     }
   }
 
+  @HostListener('mouseleave', ['$event']) onMouseLeave(e) {
+    this.cursorBox.nativeElement.style.visibility = 'hidden';
+  }
+
   constructor(private dailyLayoutService: DailyLayoutService) { }
 
   ngOnInit(): void {
