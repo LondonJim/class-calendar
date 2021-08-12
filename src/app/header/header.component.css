@@ -2,8 +2,7 @@
   height: 10vh;
   background-color: #272727;
   display: flex;
-  justify-content: space-between;
-  border-bottom: 5px solid #FFE400;
+  border-bottom: 10px solid #FFE400;
 }
 
 .day-button {

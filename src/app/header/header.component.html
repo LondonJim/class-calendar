@@ -1,12 +1,17 @@
-<div class="header" style="display: flex; justify-content: center;">
-  <ng-container *ngFor="let day of days">
-    <button
-      class="day-button"
-      [ngStyle]="{'box-shadow': selectedDay === day ? '0 0 0 3pt #FFE400' : null, 'background-color': selectedDay === day ? '#14A76C' : '#FF652F'}"
-      [value]="day"
-      mat-raised-button color="primary"
-      (click)="selectDay(day)">
-      {{day | titlecase }}
-    </button>
-  </ng-container>
+<div class="header">
+  <div style="padding: 10px 0 0 10px">
+    <img src="/assets/ctlogo.png" alt="Classroom Timetable logo" height="75">
+  </div>
+  <div style="display: flex; justify-content: space-evenly; width: 100%;">
+    <ng-container *ngFor="let day of days">
+      <button
+        class="day-button"
+        [ngStyle]="{'box-shadow': selectedDay === day ? '0 0 0 3pt #FFE400' : null, 'background-color': selectedDay === day ? '#14A76C' : '#FF652F'}"
+        [value]="day"
+        mat-raised-button color="primary"
+        (click)="selectDay(day)">
+        {{day | titlecase }}
+      </button>
+    </ng-container>
+  </div>
 </div>
