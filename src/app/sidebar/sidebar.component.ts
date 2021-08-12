@@ -4,6 +4,7 @@ import { DailyLayoutService } from "src/app/services/daily-layout.service";
 import { ScreenDisplayModel } from "src/app/models/screen-display.model";
 import { ColorPickerControl } from "@iplab/ngx-color-picker";
 import { Subscription } from "rxjs";
+import Swal from "sweetalert2";
 
 @Component({
   selector: 'app-sidebar',
@@ -69,15 +70,52 @@ export class SidebarComponent implements OnInit {
   }
 
   onDeleteDrawing() {
-    this.deleteDrawing.emit(true);
+    Swal.fire({
+      title: 'Do you want to delete the drawing?',
+      showDenyButton: true,
+      confirmButtonText: `Yes`,
+      denyButtonText: `No`,
+      width: 600,
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        this.deleteDrawing.emit(true);
+      }
+    })
   }
 
   onDeleteImages() {
-    this.dailyLayoutService.deleteImages();
+    Swal.fire({
+      title: 'Do you want to delete the images?',
+      showDenyButton: true,
+      confirmButtonText: `Yes`,
+      denyButtonText: `No`,
+      width: 600,
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        this.dailyLayoutService.deleteImages();
+      }
+    })
   }
 
   onDeleteAll() {
-    this.deleteDrawing.emit(true);
-    this.dailyLayoutService.deleteImages();
+    Swal.fire({
+      title: 'Do you want to delete the entire page?',
+      showDenyButton: true,
+      confirmButtonText: `Yes`,
+      denyButtonText: `No`,
+      width: 600,
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        setTimeout(() => {
+          this.dailyLayoutService.deleteImages();
+        })
+        setTimeout(() => {
+          this.deleteDrawing.emit(true);
+        })
+      }
+    })
   }
 }
