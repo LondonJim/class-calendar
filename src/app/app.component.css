@@ -9,9 +9,7 @@
 
 .centered {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  -ms-transform: translateX(-50%) translateY(-50%);
-  -webkit-transform: translate(-50%,-50%);
+  top: 55%;
+  left: 0%;
   transform: translate(-50%,-50%);
 }

@@ -24,7 +24,8 @@
     </as-split-area>
   </as-split>
 </div>
-<div *ngIf="displayFullScreen" style="height: 100vh;">
+
+<div *ngIf="displayFullScreen" style="height: 100vh;" class="centered">
   <app-main
     style="z-index: 100;"
     [paintBrush]="paintBrush"
