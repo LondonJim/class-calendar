@@ -13,7 +13,8 @@
     *ngFor='let displayedImage of displayedImages; index as index'
     cdkDrag
     (cdkDragEnded)="dragEnd($event, displayedImage, index);"
-    (cdkDragMoved)="dragMove($event)">
+    (cdkDragMoved)="dragMove($event)"
+    [cdkDragDisabled]="displayFullScreen">
     <img
       [ngClass]="displayedImage.edit ? 'image-border' : null"
       [ngStyle]="{ position: 'absolute', cursor: 'pointer' }"

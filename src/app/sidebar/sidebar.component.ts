@@ -70,6 +70,7 @@ export class SidebarComponent implements OnInit {
   }
 
   onDisplayFullScreen(isDisplayFullScreen) {
+    this.dailyLayoutService.resetEditMode();
     this.dailyLayoutService.displayFullScreen(isDisplayFullScreen);
   }
 

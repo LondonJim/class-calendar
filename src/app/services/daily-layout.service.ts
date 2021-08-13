@@ -108,6 +108,14 @@ export class DailyLayoutService {
   editModeToggle(index) {
     this.dailyLayout[this.selectedDay].images[index].edit = !this.dailyLayout[this.selectedDay].images[index].edit;
     this.dailyLayoutChange.next(this.dailyLayout);
+    console.log(this.dailyLayout[this.selectedDay].images)
+  }
+
+  resetEditMode() {
+    this.dailyLayout[this.selectedDay].images.forEach((el) => {
+      el.edit = false
+    })
+    this.dailyLayoutChange.next(this.dailyLayout);
   }
 
   moveInArray(arr, old_index, new_index) {

@@ -13,6 +13,7 @@ export class MainComponent implements OnInit, AfterViewInit {
   selectedIndex: number;
   selectedX: number;
   selectedY: number;
+  displayFullScreen: boolean;
   @Input() paintBrush: { selectedColor: string, paintBrushSize: number };
   @ViewChild(DrawingCanvasComponent) drawingCanvas;
   _deleteDrawing: boolean;
@@ -54,6 +55,7 @@ export class MainComponent implements OnInit, AfterViewInit {
   constructor(private dailyLayoutService: DailyLayoutService) { }
 
   ngOnInit(): void {
+    this.displayFullScreen = this.dailyLayoutService.fullScreen;
     this.dailyLayoutService.selectedDayChange.subscribe(value => {
       this.resetCanvas();
       this.displayedImages = this.dailyLayoutService.dailyLayout[this.dailyLayoutService.selectedDay].images;
