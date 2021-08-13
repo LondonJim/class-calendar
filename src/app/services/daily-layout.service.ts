@@ -45,28 +45,33 @@ export class DailyLayoutService {
   saveCanvasData(canvasData: string) {
     this.dailyLayout[this.selectedDay].canvas = canvasData;
     this.dailyLayoutChange.next(this.dailyLayout);
-    localStorage.setItem('classCalendar', JSON.stringify(this.dailyLayout));
+    this.updateLocalStorage();
   }
 
   addImage(image: ScreenDisplayModel) {
+    console.log(this.dailyLayout)
     this.dailyLayout[this.selectedDay].images.push(image);
     this.dailyLayoutChange.next(this.dailyLayout)
+    this.updateLocalStorage()
   }
 
   increaseImageSize(index) {
     this.dailyLayout[this.selectedDay].images[index].size = this.dailyLayout[this.selectedDay].images[index].size + 10;
     this.dailyLayoutChange.next(this.dailyLayout);
+    this.updateLocalStorage();
   }
 
   decreaseImageSize(index) {
     this.dailyLayout[this.selectedDay].images[index].size = this.dailyLayout[this.selectedDay].images[index].size - 10;
     this.dailyLayoutChange.next(this.dailyLayout);
+    this.updateLocalStorage();
   }
 
   increasePosition(index) {
     if (index < this.dailyLayout[this.selectedDay].length - 1) {
       this.dailyLayout[this.selectedDay] = this.moveInArray(this.dailyLayout[this.selectedDay], index, index + 1);
       this.dailyLayoutChange.next(this.dailyLayout);
+      this.updateLocalStorage();
     }
   }
 
@@ -74,23 +79,27 @@ export class DailyLayoutService {
     if (index > 0) {
       this.dailyLayout[this.selectedDay] = this.moveInArray(this.dailyLayout[this.selectedDay], index, index - 1);
       this.dailyLayoutChange.next(this.dailyLayout);
+      this.updateLocalStorage();
     }
   }
 
   removeImage(index) {
     this.dailyLayout[this.selectedDay].images.splice(index, 1);
     this.dailyLayoutChange.next(this.dailyLayout);
+    this.updateLocalStorage();
   }
 
   deleteImages() {
     this.dailyLayout[this.selectedDay].images = [];
     this.dailyLayoutChange.next(this.dailyLayout);
+    this.updateLocalStorage();
   }
 
   updatePostion(newX, newY, index) {
     this.dailyLayout[this.selectedDay].images[index].x = this.dailyLayout[this.selectedDay].images[index].x + newX;
     this.dailyLayout[this.selectedDay].images[index].y = this.dailyLayout[this.selectedDay].images[index].y + newY;
     this.dailyLayoutChange.next(this.dailyLayout);
+    this.updateLocalStorage();
   }
 
   editModeToggle(index) {
@@ -113,5 +122,9 @@ export class DailyLayoutService {
     }
     arr.splice(new_index, 0, arr.splice(old_index, 1)[0]);
     return arr;
+  }
+
+  updateLocalStorage() {
+    localStorage.setItem('classCalendar', JSON.stringify(this.dailyLayout));
   }
 }

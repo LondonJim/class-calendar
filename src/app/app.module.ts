@@ -11,7 +11,6 @@ import { MainComponent } from './main/main.component';
 import { HeaderComponent } from './header/header.component';
 import { DrawingCanvasComponent } from "./main/drawing-canvas/drawing-canvas.component";
 import { ColorPickerModule } from '@iplab/ngx-color-picker';
-import { StoreModule } from '@ngrx/store';
 import { MatTooltipModule } from "@angular/material/tooltip";
 
 @NgModule({
@@ -30,7 +29,6 @@ import { MatTooltipModule } from "@angular/material/tooltip";
     MatIconModule,
     MatButtonModule,
     ColorPickerModule,
-    StoreModule.forRoot({}, {}),
     MatTooltipModule,
   ],
   providers: [],
