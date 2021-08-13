@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import { DailyLayoutService } from "src/app/services/daily-layout.service";
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-root',
@@ -11,6 +12,7 @@ export class AppComponent implements OnInit {
   paintBrush: {selectedColor: string, paintBrushSize: number};
   deleteDrawing: boolean;
   displayFullScreen: boolean = false;
+  todayDate = moment().format('dddd Do MMMM YYYY');
 
   constructor(private dailyLayoutService: DailyLayoutService) { }
 

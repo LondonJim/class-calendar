@@ -25,9 +25,10 @@
   </as-split>
 </div>
 
-<div *ngIf="displayFullScreen" style="height: 100vh;" class="centered">
+<div *ngIf="displayFullScreen">
+  <div class="display-date">{{todayDate}}</div>
   <app-main
-    style="z-index: 100;"
+    class="centered"
     [paintBrush]="paintBrush"
     [deleteDrawing]="deleteDrawing">
   </app-main>

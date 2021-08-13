@@ -12,4 +12,11 @@
   top: 55%;
   left: 0%;
   transform: translate(-50%,-50%);
+  z-index: 100;
+}
+
+.display-date {
+  padding-top: 15px;
+  text-align: center;
+  font: 50px ABeeZee;
 }

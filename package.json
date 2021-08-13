@@ -23,6 +23,7 @@
     "@angular/router": "~10.2.5",
     "@iplab/ngx-color-picker": "^2.0.2",
     "angular-split": "~5.0.0",
+    "moment": "^2.29.1",
     "rxjs": "~6.5.4",
     "sweetalert2": "^11.1.2",
     "tslib": "^2.0.0",
