@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Subject } from "rxjs";
 import { DaysModel } from "../models/days.model";
 import { ScreenDisplayModel } from "../models/screen-display.model";
+import * as moment from 'moment';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,7 @@ export class DailyLayoutService {
     friday: {images: [], canvas: null},
   }
   DAYS_OF_WEEK = ['sunday', 'monday','tuesday','wednesday','thursday','friday', 'saturday'];
+  datesOfWeek: {};
   // TODO read cookie to prefill starting value
   dailyLayout: DaysModel = this.STARTING_VALUE;
   dailyLayoutChange: Subject<DaysModel> = new Subject<DaysModel>();
@@ -30,6 +32,7 @@ export class DailyLayoutService {
     this.dailyLayoutChange.subscribe((value) => {
       this.dailyLayout = value;
     });
+    this.datesOfWeek = this.getCurrentWeek();
   }
 
   displayFullScreen(isFullScreen) {
@@ -127,4 +130,15 @@ export class DailyLayoutService {
   updateLocalStorage() {
     localStorage.setItem('classCalendar', JSON.stringify(this.dailyLayout));
   }
+
+  getCurrentWeek() {
+    const currentDate = moment();
+    const weekStart = currentDate.clone();
+    const days = {};
+    for (let i = 0; i <= 6; i++) {
+      days[(moment(weekStart).add(i, 'days').format('dddd')).toLowerCase()] = (moment(weekStart).add(i, 'days').format('dddd Do MMMM YYYY'));
+    }
+    return days;
+  }
+
 }
