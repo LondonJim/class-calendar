@@ -39,7 +39,7 @@
               'width': paintBrushSize + 'px',
               'height': paintBrushSize + 'px',
               'background-color': valueColor,
-              'top': (paintBrushSize / 2) - 5 + 'px',
+              'top': (paintBrushSize / 2) - 4 + 'px',
               'left': 10 - (paintBrushSize / 2) + 'px',
               'box-shadow': selectedColor === 'rgb(255,255,255)' ? '0 0 0 1pt black' : null
               }">
@@ -69,5 +69,23 @@
     <div><a href="https://www.flaticon.com/authors/mangsaabguru" title="mangsaabguru">mangsaabguru</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
     <div><a href="https://www.flaticon.com/authors/pause08" title="Pause08">Pause08</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
     <div><a href="https://www.flaticon.com/authors/mynamepong" title="mynamepong">mynamepong</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+  </div>
+</div>
+
+<div style="display: none;">
+  <div #addImagePopUp>
+    <div *ngIf="selectedImageDetail">
+      <img
+        class="icon"
+        [src]="selectedImageDetail?.link">
+      <mat-form-field style="display: block">
+        <mat-label>Time</mat-label>
+        <input matInput [value]="selectedTime" (change)="selectedTime = $event.target.value">
+      </mat-form-field>
+      <mat-form-field style="display: block">
+        <mat-label>Title</mat-label>
+        <input matInput [value]="selectedTitle" (change)="selectedTitle = $event.target.value">
+      </mat-form-field>
+    </div>
   </div>
 </div>

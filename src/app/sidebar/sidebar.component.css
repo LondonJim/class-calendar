@@ -12,6 +12,7 @@
   box-shadow: rgba(0,0,0,.2) 0 0 5px 2px;
   cursor: pointer;
   top: -2px;
+  padding: 1px;
 }
 
 .group-container {
@@ -21,7 +22,7 @@
   border: 1px solid rgba(0,0,0,.2);
   box-shadow: rgba(0,0,0,.15) 0 3px 12px;
   border-radius: 4px;
-  padding: 5px 5px 1px 5px;
+  padding: 5px 5px 5px 5px;
   margin-top: 5px;
   margin-bottom: 5px;
 }
@@ -48,4 +49,22 @@
 .icon-select{
   font-size: 30px;
   cursor: pointer;
+}
+
+::ng-deep .mat-checkbox-frame {
+  border-color: grey !important;
+}
+
+::ng-deep .mat-form-field-label {
+  /*change color of label*/
+  color: green !important;
+}
+
+::ng-deep.mat-form-field-underline {
+  /*change color of underline*/
+  background-color: green !important;
+}
+
+input {
+  font: 21px ABeeZee;
 }

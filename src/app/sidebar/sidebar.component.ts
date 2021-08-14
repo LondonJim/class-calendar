@@ -5,6 +5,7 @@ import { ScreenDisplayModel } from "src/app/models/screen-display.model";
 import { ColorPickerControl } from "@iplab/ngx-color-picker";
 import { Subscription } from "rxjs";
 import Swal from "sweetalert2";
+import {ImageDetailModel} from "../models/image-detail.model";
 
 @Component({
   selector: 'app-sidebar',
@@ -13,11 +14,14 @@ import Swal from "sweetalert2";
 })
 export class SidebarComponent implements OnInit {
   DEFAULT_COORDINATES = {  x: 100, y: 100, z: 100, size: 100, edit: false }
-  paintBrushSizes = [3, 5, 7, 9, 11, 13, 15, 17]
+  paintBrushSizes = [3, 5, 7, 9, 11, 13, 15]
   imageDetails = ImageDetails;
+  selectedImageDetail: ImageDetailModel;
   valueColor: string;
   selectedPaintBrushSize: number = 3;
   selectedColor: string = 'rgb(0,0,0)';
+  selectedTime: string;
+  selectedTitle: string;
 
   public githubControl = new ColorPickerControl();
   valueColorSubscription: Subscription;
@@ -26,6 +30,7 @@ export class SidebarComponent implements OnInit {
   @Output() deleteDrawing = new EventEmitter();
 
   @ViewChild('iconAttributation',{static: false}) iconAttributation: ElementRef;
+  @ViewChild('addImagePopUp',{static: false}) addImagePopUp: ElementRef;
 
   constructor(private dailyLayoutService: DailyLayoutService) { }
 
@@ -67,8 +72,22 @@ export class SidebarComponent implements OnInit {
 
   onAddImage(selectedImageIndex) {
     const imageDetails = this.imageDetails.filter(({ index }) => index === selectedImageIndex)
-    const newImage: ScreenDisplayModel = { ...imageDetails[0], ...this.DEFAULT_COORDINATES };
-    this.dailyLayoutService.addImage(newImage);
+    let newImage: ScreenDisplayModel = { ...imageDetails[0], ...this.DEFAULT_COORDINATES };
+    this.selectedImageDetail = imageDetails[0];
+    this.selectedTitle = imageDetails[0].tag;
+    this.selectedTime = '';
+    Swal.fire({
+      title: 'Adding Image',
+      html: this.addImagePopUp.nativeElement,
+      showCancelButton: true,
+      showConfirmButton: true,
+      confirmButtonText: 'Confirm'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        newImage = {...newImage, tag: `${this.selectedTime ? this.selectedTime + ' - ' : ''}${this.selectedTitle}`}
+        this.dailyLayoutService.addImage(newImage);
+      }
+    })
   }
 
   onDisplayFullScreen(isDisplayFullScreen) {
@@ -87,6 +106,9 @@ export class SidebarComponent implements OnInit {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
         this.deleteDrawing.emit(true);
+        setTimeout(() => {
+          this.deleteDrawing.emit(false);
+        })
       }
     })
   }
@@ -130,5 +152,9 @@ export class SidebarComponent implements OnInit {
     Swal.fire({
       html: this.iconAttributation.nativeElement
     })
+  }
+
+  test(e) {
+    console.log(e)
   }
 }

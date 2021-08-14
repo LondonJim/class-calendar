@@ -12,6 +12,8 @@ import { HeaderComponent } from './header/header.component';
 import { DrawingCanvasComponent } from "./main/drawing-canvas/drawing-canvas.component";
 import { ColorPickerModule } from '@iplab/ngx-color-picker';
 import { MatTooltipModule } from "@angular/material/tooltip";
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -30,6 +32,8 @@ import { MatTooltipModule } from "@angular/material/tooltip";
     MatButtonModule,
     ColorPickerModule,
     MatTooltipModule,
+    MatCheckboxModule,
+    MatInputModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

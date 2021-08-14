@@ -16,7 +16,7 @@ export class MainComponent implements OnInit, AfterViewInit {
   displayFullScreen: boolean;
   @Input() paintBrush: { selectedColor: string, paintBrushSize: number };
   @ViewChild(DrawingCanvasComponent) drawingCanvas;
-  _deleteDrawing: boolean;
+  _deleteDrawing: boolean = false;
   @Input() set deleteDrawing (deleteDrawing: boolean) {
     if (deleteDrawing) {
       this._deleteDrawing = deleteDrawing;

@@ -52,7 +52,6 @@ export class DailyLayoutService {
   }
 
   addImage(image: ScreenDisplayModel) {
-    console.log(this.dailyLayout)
     this.dailyLayout[this.selectedDay].images.push(image);
     this.dailyLayoutChange.next(this.dailyLayout)
     this.updateLocalStorage()
@@ -108,7 +107,6 @@ export class DailyLayoutService {
   editModeToggle(index) {
     this.dailyLayout[this.selectedDay].images[index].edit = !this.dailyLayout[this.selectedDay].images[index].edit;
     this.dailyLayoutChange.next(this.dailyLayout);
-    console.log(this.dailyLayout[this.selectedDay].images)
   }
 
   resetEditMode() {

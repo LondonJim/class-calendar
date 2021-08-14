@@ -9,7 +9,7 @@ import { DailyLayoutService } from "src/app/services/daily-layout.service";
 export class AppComponent implements OnInit {
   title = 'class-calendar';
   paintBrush: {selectedColor: string, paintBrushSize: number};
-  deleteDrawing: boolean;
+  deleteDrawing: boolean = false;
   displayFullScreen: boolean = false;
   dateOfWeek: {};
 
