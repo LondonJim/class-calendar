@@ -1,49 +1,69 @@
 <div class="sidebar">
   <span *ngFor='let imageDetail of imageDetails'>
-      <img style="width: 100px;" [src]="imageDetail.link" [alt]="imageDetail.tag" (click)="onAddImage(imageDetail.index)">
+      <img
+        class="icon"
+        [matTooltip]="imageDetail.tag"
+        matTooltipClass="tooltip"
+        [src]="imageDetail.link"
+        [alt]="imageDetail.tag"
+        (click)="onAddImage(imageDetail.index)">
   </span>
-</div>
-<div style="position: fixed; bottom: 164px; left: 10px; text-align: center; padding-bottom: 5px;" class="group-container">
- <button mat-raised-button color="primary" style="width: 100%;" (click)="onDisplayFullScreen(true)">
-   DISPLAY
- </button>
-</div>
-<div style="position: fixed; bottom: 119px; left: 10px;">
-  <div class="group-container icon-spread">
-    <mat-icon matTooltip="Undo last draw" class="icon-select">undo</mat-icon>
-    <mat-icon matTooltip="Delete all" (click)="onDeleteAll()" class="icon-select">delete_forever</mat-icon>
-    <mat-icon matTooltip="Delete drawing" (click)="onDeleteDrawing()" class="icon-select">clear</mat-icon>
-    <mat-icon matTooltip="Delete images" (click)="onDeleteImages()" class="icon-select">layers_clear</mat-icon>
-    <mat-icon matTooltip="Eraser" class="icon-select">format_color_reset</mat-icon>
-    <mat-icon matTooltip="Fill with colour" class="icon-select">format_color_fill</mat-icon>
+  <div style="position: fixed; bottom: 212px; left: 10px; text-align: center; padding-bottom: 5px;" class="group-container">
+   <button mat-raised-button color="primary" style="width: 100%;" (click)="onDisplayFullScreen(true)">
+     DISPLAY
+   </button>
   </div>
-</div>
-<div style="position: fixed; bottom: 10px; left: 10px;">
-  <div class="group-container">
-    <span *ngFor="let paintBrushSize of paintBrushSizes; index as i;">
-      <div
-        class="paint-brush-size-box"
-        [ngStyle]="{'box-shadow': this.selectedPaintBrushSize === paintBrushSize ? 'inset 0px 0px 0px 1px black' : null}"
-        (click)="onSelectBrushSize(paintBrushSize)">
+  <div style="position: fixed; bottom: 167px; left: 10px;">
+    <div class="group-container icon-spread">
+      <mat-icon matTooltip="Undo last draw" class="icon-select">undo</mat-icon>
+      <mat-icon matTooltip="Delete all" (click)="onDeleteAll()" class="icon-select">delete_forever</mat-icon>
+      <mat-icon matTooltip="Delete drawing" (click)="onDeleteDrawing()" class="icon-select">clear</mat-icon>
+      <mat-icon matTooltip="Delete images" (click)="onDeleteImages()" class="icon-select">layers_clear</mat-icon>
+      <mat-icon matTooltip="Eraser" class="icon-select">format_color_reset</mat-icon>
+      <mat-icon matTooltip="Fill with colour" class="icon-select">format_color_fill</mat-icon>
+    </div>
+  </div>
+  <div style="position: fixed; bottom: 58px; left: 10px;">
+    <div class="group-container">
+      <span *ngFor="let paintBrushSize of paintBrushSizes; index as i;">
         <div
-          class="dot"
-          [ngStyle]="{
-            'width': paintBrushSize + 'px',
-            'height': paintBrushSize + 'px',
-            'background-color': valueColor,
-            'top': (18.75 - (paintBrushSize / 2)) + 'px',
-            'left': ((18.75 - (paintBrushSize / 2)) + 25 * i) + 'px',
-            'box-shadow': selectedColor === 'rgb(255,255,255)' ? '0 0 0 1pt black' : null
-            }">
+          class="paint-brush-size-box"
+          [ngStyle]="{'box-shadow': this.selectedPaintBrushSize === paintBrushSize ? 'inset 0px 0px 0px 1px black' : null}"
+          (click)="onSelectBrushSize(paintBrushSize)">
+          <div
+            class="dot"
+            [ngStyle]="{
+              'width': paintBrushSize + 'px',
+              'height': paintBrushSize + 'px',
+              'background-color': valueColor,
+              'top': (18.75 - (paintBrushSize / 2)) + 'px',
+              'left': ((18.75 - (paintBrushSize / 2)) + 25 * i) + 'px',
+              'box-shadow': selectedColor === 'rgb(255,255,255)' ? '0 0 0 1pt black' : null
+              }">
+          </div>
         </div>
-      </div>
-    </span>
+      </span>
+    </div>
+    <github-picker
+      style="margin-top: 5px;"
+      [(color)]="valueColor" [control]="githubControl">
+    </github-picker>
   </div>
-  <github-picker
-    style="margin-top: 5px;"
-    [(color)]="valueColor" [control]="githubControl">
-  </github-picker>
+  <div style="position: fixed; bottom: 5px; left: 10px; text-align: center; padding-bottom: 5px;" class="group-container">
+    <button mat-raised-button color="primary" style="width: 100%; font-size: 12px;" (click)="onIconAttributation()">
+      ICON ATTRIBUTATION
+    </button>
+  </div>
 </div>
 
-<!--0 0 0 1pt black-->
-
+<div style="display: none;">
+  <div #iconAttributation>
+    <b>Icons made by:</b>
+    <div><a href="https://www.flaticon.com/authors/eucalyp" title="Eucalyp">Eucalyp</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+    <div><a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+    <div><a href="https://www.flaticon.com/authors/smalllikeart" title="smalllikeart">smalllikeart</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+    <div><a href="https://www.flaticon.com/authors/mangsaabguru" title="mangsaabguru">mangsaabguru</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+    <div><a href="https://www.flaticon.com/authors/pause08" title="Pause08">Pause08</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+    <div><a href="https://www.flaticon.com/authors/mynamepong" title="mynamepong">mynamepong</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+  </div>
+</div>

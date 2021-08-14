@@ -36,5 +36,12 @@
       <mat-icon (click)="onDecreasePosition(index)">keyboard_arrow_down</mat-icon>
       <mat-icon (click)="onRemove(index)">clear</mat-icon>
     </div>
+    <div
+      class="icon-title"
+      [style.left.px] = 'displayedImage.x + displayedImage.size + 10'
+      [style.top.px] = 'displayedImage.y + (displayedImage.size / 2) - (displayedImage.size / 8) '
+      [style.fontSize.px] = 'displayedImage.size / 4'>
+      {{displayedImage.tag}}
+    </div>
   </div>
 </div>

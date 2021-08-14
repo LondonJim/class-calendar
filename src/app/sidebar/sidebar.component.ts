@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, ElementRef, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 import { ImageDetails } from "src/assets/image-list";
 import { DailyLayoutService } from "src/app/services/daily-layout.service";
 import { ScreenDisplayModel } from "src/app/models/screen-display.model";
@@ -24,6 +24,8 @@ export class SidebarComponent implements OnInit {
 
   @Output() paintBrushEvent = new EventEmitter<{selectedColor: string, paintBrushSize: number}>();
   @Output() deleteDrawing = new EventEmitter();
+
+  @ViewChild('iconAttributation',{static: false}) iconAttributation: ElementRef;
 
   constructor(private dailyLayoutService: DailyLayoutService) { }
 
@@ -121,6 +123,12 @@ export class SidebarComponent implements OnInit {
           this.deleteDrawing.emit(true);
         })
       }
+    })
+  }
+
+  onIconAttributation() {
+    Swal.fire({
+      html: this.iconAttributation.nativeElement
     })
   }
 }

@@ -4,10 +4,11 @@
   </button>
 </div>
 <div *ngIf="!displayFullScreen">
-  <app-header>
+  <app-header style="position: fixed; z-index: 102; width: 100%;">
   </app-header>
 </div>
-<div *ngIf="!displayFullScreen" class="split-example" style="height: 90vh;">
+<div *ngIf="!displayFullScreen" style="height: 100px;"></div>
+<div *ngIf="!displayFullScreen" class="split-example" style="height: 100%;">
   <as-split direction="horizontal" class="split-example ex-percent" unit="pixel">
     <as-split-area [size]="displayFullScreen ? 0 : 228">
       <app-sidebar
@@ -16,11 +17,13 @@
       </app-sidebar>
     </as-split-area>
     <as-split-area size="'*'">
-      <app-main
-        style="z-index: 100;"
-        [paintBrush]="paintBrush"
-        [deleteDrawing]="deleteDrawing">
-      </app-main>
+      <div style="position: fixed;">
+        <app-main
+          style="z-index: 100;"
+          [paintBrush]="paintBrush"
+          [deleteDrawing]="deleteDrawing">
+        </app-main>
+      </div>
     </as-split-area>
   </as-split>
 </div>

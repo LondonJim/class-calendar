@@ -128,4 +128,5 @@ export class MainComponent implements OnInit, AfterViewInit {
   onRemove(index) {
     this.dailyLayoutService.removeImage(index);
   }
+
 }
