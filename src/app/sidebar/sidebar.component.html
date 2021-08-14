@@ -1,5 +1,6 @@
 <div class="sidebar">
-  <span *ngFor='let imageDetail of imageDetails'>
+  <div style="height: calc(90vh - 270px); overflow: scroll;">
+    <span *ngFor='let imageDetail of imageDetails'>
       <img
         class="icon"
         [matTooltip]="imageDetail.tag"
@@ -7,24 +8,26 @@
         [src]="imageDetail.link"
         [alt]="imageDetail.tag"
         (click)="onAddImage(imageDetail.index)">
-  </span>
-  <div style="position: fixed; bottom: 212px; left: 10px; text-align: center; padding-bottom: 5px;" class="group-container">
-   <button mat-raised-button color="primary" style="width: 100%;" (click)="onDisplayFullScreen(true)">
-     DISPLAY
-   </button>
+    </span>
   </div>
-  <div style="position: fixed; bottom: 167px; left: 10px;">
-    <div class="group-container icon-spread">
-      <mat-icon matTooltip="Undo last draw" class="icon-select">undo</mat-icon>
-      <mat-icon matTooltip="Delete all" (click)="onDeleteAll()" class="icon-select">delete_forever</mat-icon>
-      <mat-icon matTooltip="Delete drawing" (click)="onDeleteDrawing()" class="icon-select">clear</mat-icon>
-      <mat-icon matTooltip="Delete images" (click)="onDeleteImages()" class="icon-select">layers_clear</mat-icon>
-      <mat-icon matTooltip="Eraser" class="icon-select">format_color_reset</mat-icon>
-      <mat-icon matTooltip="Fill with colour" class="icon-select">format_color_fill</mat-icon>
+  <div id='edit-options' >
+    <div style="left: 10px; text-align: center; padding-bottom: 5px;" class="group-container">
+     <button mat-raised-button color="primary" style="width: 100%;" (click)="onDisplayFullScreen(true)">
+       DISPLAY
+     </button>
     </div>
-  </div>
-  <div style="position: fixed; bottom: 58px; left: 10px;">
-    <div class="group-container">
+    <div style="left: 10px;">
+      <div class="group-container icon-spread">
+        <mat-icon matTooltip="Undo last draw" class="icon-select">undo</mat-icon>
+        <mat-icon matTooltip="Delete all" (click)="onDeleteAll()" class="icon-select">delete_forever</mat-icon>
+        <mat-icon matTooltip="Delete drawing" (click)="onDeleteDrawing()" class="icon-select">clear</mat-icon>
+        <mat-icon matTooltip="Delete images" (click)="onDeleteImages()" class="icon-select">layers_clear</mat-icon>
+        <mat-icon matTooltip="Eraser" class="icon-select">format_color_reset</mat-icon>
+        <mat-icon matTooltip="Fill with colour" class="icon-select">format_color_fill</mat-icon>
+      </div>
+    </div>
+    <div style="left: 10px;">
+      <div class="group-container">
       <span *ngFor="let paintBrushSize of paintBrushSizes; index as i;">
         <div
           class="paint-brush-size-box"
@@ -36,23 +39,24 @@
               'width': paintBrushSize + 'px',
               'height': paintBrushSize + 'px',
               'background-color': valueColor,
-              'top': (18.75 - (paintBrushSize / 2)) + 'px',
-              'left': ((18.75 - (paintBrushSize / 2)) + 25 * i) + 'px',
+              'top': (paintBrushSize / 2) - 5 + 'px',
+              'left': 10 - (paintBrushSize / 2) + 'px',
               'box-shadow': selectedColor === 'rgb(255,255,255)' ? '0 0 0 1pt black' : null
               }">
           </div>
         </div>
       </span>
+      </div>
+      <github-picker
+        style="margin-top: 5px;"
+        [(color)]="valueColor" [control]="githubControl">
+      </github-picker>
     </div>
-    <github-picker
-      style="margin-top: 5px;"
-      [(color)]="valueColor" [control]="githubControl">
-    </github-picker>
-  </div>
-  <div style="position: fixed; bottom: 5px; left: 10px; text-align: center; padding-bottom: 5px;" class="group-container">
-    <button mat-raised-button color="primary" style="width: 100%; font-size: 12px;" (click)="onIconAttributation()">
-      ICON ATTRIBUTATION
-    </button>
+    <div style="left: 10px; text-align: center; padding-bottom: 5px;" class="group-container">
+      <button mat-raised-button color="primary" style="width: 100%; font-size: 12px;" (click)="onIconAttributation()">
+        ICON ATTRIBUTATION
+      </button>
+    </div>
   </div>
 </div>
 

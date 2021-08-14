@@ -1,5 +1,5 @@
 .main {
-  height: 90vh;
+  max-height: calc(90% - 100);
   background-color: white;
   position: relative;
   cursor: crosshair;

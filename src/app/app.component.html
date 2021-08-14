@@ -8,16 +8,16 @@
   </app-header>
 </div>
 <div *ngIf="!displayFullScreen" style="height: 100px;"></div>
-<div *ngIf="!displayFullScreen" class="split-example" style="height: 100%;">
-  <as-split direction="horizontal" class="split-example ex-percent" unit="pixel">
-    <as-split-area [size]="displayFullScreen ? 0 : 228">
+<div *ngIf="!displayFullScreen" style="top: 100px; height: 100%; position: fixed;">
+  <as-split direction="horizontal" unit="pixel">
+    <as-split-area [size]="228" style="height: auto;">
       <app-sidebar
         (paintBrushEvent)="paintBrush = $event"
         (deleteDrawing)="deleteDrawing = $event">
       </app-sidebar>
     </as-split-area>
     <as-split-area size="'*'">
-      <div style="position: fixed;">
+      <div>
         <app-main
           style="z-index: 100;"
           [paintBrush]="paintBrush"
