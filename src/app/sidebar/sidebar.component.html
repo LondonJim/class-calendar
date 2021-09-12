@@ -16,6 +16,11 @@
        DISPLAY
      </button>
     </div>
+    <div style="left: 10px; text-align: center; padding-bottom: 5px;" class="group-container">
+      <button mat-raised-button color="primary" style="width: 100%;" (click)="onAddText()">
+        ADD TEXT
+      </button>
+    </div>
     <div style="left: 10px;">
       <div class="group-container icon-spread">
         <mat-icon matTooltip="Undo last draw" class="icon-select">undo</mat-icon>
@@ -79,13 +84,37 @@
         class="icon"
         [src]="selectedImageDetail?.link">
       <mat-form-field style="display: block">
-        <mat-label>Time</mat-label>
+        <mat-label>Time (optional)</mat-label>
         <input matInput [value]="selectedTime" (change)="selectedTime = $event.target.value">
       </mat-form-field>
       <mat-form-field style="display: block">
-        <mat-label>Title</mat-label>
+        <mat-label>Title (optional)</mat-label>
         <input matInput [value]="selectedTitle" (change)="selectedTitle = $event.target.value">
       </mat-form-field>
     </div>
+  </div>
+</div>
+
+<div style="display: none;">
+  <div #addTextPopUp>
+      <mat-button-toggle-group name="fontSize" aria-label="Font Size" (change)="triggerResize($event.value)">
+        <mat-button-toggle value="20px">20px</mat-button-toggle>
+        <mat-button-toggle value="32px">32px</mat-button-toggle>
+        <mat-button-toggle value="40px">40px</mat-button-toggle>
+        <mat-button-toggle value="48px">48px</mat-button-toggle>
+        <mat-button-toggle value="56px">56px</mat-button-toggle>
+      </mat-button-toggle-group>
+    <mat-form-field style="display: block">
+      <mat-label>Text</mat-label>
+      <textarea
+        #textArea
+        [style.fontSize]="addedTextFontSize"
+        matInput
+        (change)="addedText = textArea.value"
+        cdkTextareaAutosize
+        #autosize="cdkTextareaAutosize"
+        cdkAutosizeMinRows="1"
+        cdkAutosizeMaxRows="99"></textarea>
+    </mat-form-field>
   </div>
 </div>

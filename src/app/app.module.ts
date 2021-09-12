@@ -14,6 +14,8 @@ import { ColorPickerModule } from '@iplab/ngx-color-picker';
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 @NgModule({
   declarations: [
@@ -34,6 +36,8 @@ import { MatInputModule } from '@angular/material/input';
     MatTooltipModule,
     MatCheckboxModule,
     MatInputModule,
+    MatSelectModule,
+    MatButtonToggleModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -1,9 +1,11 @@
-import {Component, ElementRef, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
+import {CdkTextareaAutosize} from '@angular/cdk/text-field';
+import {Component, ElementRef, EventEmitter, NgZone, OnInit, Output, ViewChild} from '@angular/core';
 import { ImageDetails } from "src/assets/image-list";
 import { DailyLayoutService } from "src/app/services/daily-layout.service";
 import { ScreenDisplayModel } from "src/app/models/screen-display.model";
 import { ColorPickerControl } from "@iplab/ngx-color-picker";
 import { Subscription } from "rxjs";
+import { take } from 'rxjs/operators';
 import Swal from "sweetalert2";
 import {ImageDetailModel} from "../models/image-detail.model";
 
@@ -22,6 +24,8 @@ export class SidebarComponent implements OnInit {
   selectedColor: string = 'rgb(0,0,0)';
   selectedTime: string;
   selectedTitle: string;
+  addedText: string;
+  addedTextFontSize = '20px';
 
   public githubControl = new ColorPickerControl();
   valueColorSubscription: Subscription;
@@ -31,8 +35,11 @@ export class SidebarComponent implements OnInit {
 
   @ViewChild('iconAttributation',{static: false}) iconAttributation: ElementRef;
   @ViewChild('addImagePopUp',{static: false}) addImagePopUp: ElementRef;
+  @ViewChild('addTextPopUp',{static: false}) addTextPopUp: ElementRef;
+  @ViewChild('autosize') autosize: CdkTextareaAutosize;
 
-  constructor(private dailyLayoutService: DailyLayoutService) { }
+  constructor(private dailyLayoutService: DailyLayoutService,
+              private _ngZone: NgZone) { }
 
   ngOnInit(): void {
     this.githubControl.setValueFrom('#000000')
@@ -61,6 +68,12 @@ export class SidebarComponent implements OnInit {
     this.emitPaintBrush();
   }
 
+  triggerResize(value) {
+    this.addedTextFontSize = value;
+    this._ngZone.onStable.pipe(take(1))
+      .subscribe(() => this.autosize.resizeToFitContent(true));
+  }
+
   onSelectBrushSize(paintBrushSize) {
     this.selectedPaintBrushSize = paintBrushSize;
     this.emitPaintBrush()
@@ -77,7 +90,7 @@ export class SidebarComponent implements OnInit {
     this.selectedTitle = imageDetails[0].tag;
     this.selectedTime = '';
     Swal.fire({
-      title: 'Adding Image',
+      title: 'Add Image',
       html: this.addImagePopUp.nativeElement,
       showCancelButton: true,
       showConfirmButton: true,
@@ -154,7 +167,18 @@ export class SidebarComponent implements OnInit {
     })
   }
 
-  test(e) {
-    console.log(e)
+  onAddText() {
+    Swal.fire({
+      title: 'Add Text',
+      html: this.addTextPopUp.nativeElement,
+      showCancelButton: true,
+      showConfirmButton: true,
+      confirmButtonText: 'Confirm',
+      width: 750
+    }).then((result) => {
+      if (result.isConfirmed) {
+
+      }
+    })
   }
 }

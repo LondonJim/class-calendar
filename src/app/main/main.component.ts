@@ -18,7 +18,7 @@ export class MainComponent implements OnInit, AfterViewInit {
   @ViewChild(DrawingCanvasComponent) drawingCanvas;
   _deleteDrawing: boolean = false;
   @Input() set deleteDrawing (deleteDrawing: boolean) {
-    if (deleteDrawing) {
+    if (deleteDrawing && this.drawingCanvas) {
       this._deleteDrawing = deleteDrawing;
       this.drawingCanvas.resetCanvas();
       this.saveCanvasData(null);
