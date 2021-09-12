@@ -51,7 +51,7 @@ export class DrawingCanvasComponent implements OnInit, AfterViewInit, OnDestroy 
   public ngAfterViewInit() {
     this.setCanvas();
     this.captureEvents(this.canvasEl);
-    document.getElementById('canvas').addEventListener('mouseup', e => {
+    document.getElementById('canvas').addEventListener('pointerup', e => {
       this.saveCanvasData.emit(this.canvasEl.toDataURL());
     })
   }
@@ -98,12 +98,12 @@ export class DrawingCanvasComponent implements OnInit, AfterViewInit, OnDestroy 
   }
 
   private captureEvents(canvasEl: HTMLCanvasElement) {
-    fromEvent(canvasEl, 'mousedown')
+    fromEvent(canvasEl, 'pointerdown')
       .pipe(
         switchMap((e) => {
-          return fromEvent(canvasEl, 'mousemove')
+          return fromEvent(canvasEl, 'pointermove')
             .pipe(
-              takeUntil(fromEvent(canvasEl, 'mouseup')),
+              takeUntil(fromEvent(canvasEl, 'pointerup')),
               // takeUntil(fromEvent(canvasEl, 'mouseleave')), // if enabled it stops when you draw over an image
               pairwise()
             )
