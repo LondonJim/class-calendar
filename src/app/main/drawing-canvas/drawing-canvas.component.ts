@@ -109,7 +109,9 @@ export class DrawingCanvasComponent implements OnInit, AfterViewInit, OnDestroy 
             )
         })
       )
-      .subscribe((res: [MouseEvent, MouseEvent]) => {
+      .subscribe((res: [PointerEvent, PointerEvent]) => {
+        res[0].preventDefault();
+        res[1].preventDefault();
         const rect = canvasEl.getBoundingClientRect();
 
         const prevPos = {
