@@ -20,5 +20,7 @@ export const ImageDetails: ImageDetailModel[] = [
   { link: 'assets/theater.svg', index: 17, tag: 'Drama'},
   { link: 'assets/tree.svg', index: 18, tag: 'Playtime'},
   { link: 'assets/winner.svg', index: 19, tag: 'Merit Assembly'},
-  { link: 'assets/writing.svg', index: 20, tag: 'Handwriting'}
+  { link: 'assets/writing.svg', index: 20, tag: 'Handwriting'},
+  { link: 'assets/dictionary.png', index: 21, tag: 'Spelling'},
+  { link: 'assets/solidarity.png', index: 22, tag: 'PSHE'}
 ];
