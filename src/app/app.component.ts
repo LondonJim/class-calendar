@@ -27,6 +27,7 @@ export class AppComponent implements OnInit {
       this.displayFullScreen = value;
       this.dateOfWeek = this.dailyLayoutService.datesOfWeek[this.dailyLayoutService.selectedDay];
     })
+    this.onDisplayFullScreen(true); // initial page is fullscreen
   }
 
   onDisplayFullScreen(isDisplayFullScreen) {
