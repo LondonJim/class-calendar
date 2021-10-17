@@ -24,7 +24,7 @@
       [style.top.px] = 'displayedImage.y'
       [src]="displayedImage.link"
       [alt]="displayedImage.tag"
-      (mousedown)="onMouseDown(index, $event)"
+      (pointerdown)="onPointerDown(index, $event)"
       (click)="onShowEdit(index, $event)">
     <div
       class="image-controls"

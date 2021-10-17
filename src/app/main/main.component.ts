@@ -31,7 +31,7 @@ export class MainComponent implements OnInit, AfterViewInit {
   }
   @ViewChild('cursorBox') cursorBox: ElementRef;
 
-  @HostListener('mousemove', ['$event']) onMouseMove(e) {
+  @HostListener('pointermove', ['$event']) onPointerMove(e) {
     if (e.path[0].id === 'canvas') {
       this.cursorBox.nativeElement.style.visibility = 'visible';
       this.cursorBox.nativeElement.style.top = e.offsetY + 'px';
@@ -44,7 +44,7 @@ export class MainComponent implements OnInit, AfterViewInit {
     }
   }
 
-  @HostListener('mouseleave', ['$event']) onMouseLeave(e) {
+  @HostListener('pointerleave', ['$event']) onPointerLeave(e) {
     this.cursorBox.nativeElement.style.visibility = 'hidden';
   }
 
@@ -97,7 +97,7 @@ export class MainComponent implements OnInit, AfterViewInit {
     element.style.transform = `translate3d(${event.distance.x}px,${event.distance.y}px,0)`;
   }
 
-  onMouseDown(index, event) {
+  onPointerDown(index, event) {
     // set so edit can only be triggered on a non movement action on image
     this.selectedIndex = index;
     this.selectedX = event.target.offsetLeft;
