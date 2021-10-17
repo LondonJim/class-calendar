@@ -14,6 +14,7 @@ export class MainComponent implements OnInit, AfterViewInit {
   selectedX: number;
   selectedY: number;
   displayFullScreen: boolean;
+  @Input() pointerUpGlobal: {};
   @Input() paintBrush: { selectedColor: string, paintBrushSize: number };
   @ViewChild(DrawingCanvasComponent) drawingCanvas;
   _deleteDrawing: boolean = false;

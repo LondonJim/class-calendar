@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, HostListener, OnInit} from '@angular/core';
 import { DailyLayoutService } from "src/app/services/daily-layout.service";
 
 @Component({
@@ -12,6 +12,12 @@ export class AppComponent implements OnInit {
   deleteDrawing: boolean = false;
   displayFullScreen: boolean = true;
   dateOfWeek: {};
+  pointerUpGlobal: {};
+
+  @HostListener('window:pointerup', ['$event'])
+  onPointerUp(event: {}) {
+    this.pointerUpGlobal = event;
+  }
 
   constructor(private dailyLayoutService: DailyLayoutService) { }
 

@@ -1,5 +1,6 @@
 .header {
   height: 10vh;
+  min-height: 100px;
   background-color: #272727;
   display: flex;
   border-bottom: 10px solid #FFE400;

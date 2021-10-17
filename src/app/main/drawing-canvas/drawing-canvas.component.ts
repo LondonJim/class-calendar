@@ -17,6 +17,13 @@ import { switchMap, takeUntil, pairwise } from 'rxjs/operators'
   styleUrls: ['./drawing-canvas.component.css']
 })
 export class DrawingCanvasComponent implements OnInit, AfterViewInit, OnDestroy {
+  // below is used to stop pointer up events happening outside the canvas therefore
+  // still drawing when pointer returns to canvas element.
+  @Input() set pointerUpGlobal (pointerUpGlobal: {}) {
+    if (pointerUpGlobal && this.canvasEl) {
+      this.triggerPointerUp();
+    }
+  }
   @Input() paintBrush: {selectedColor: string, paintBrushSize: number};
   @Output() saveCanvasData = new EventEmitter<string>();
 
@@ -38,6 +45,9 @@ export class DrawingCanvasComponent implements OnInit, AfterViewInit, OnDestroy 
 
   @ViewChild('canvas') public canvas: ElementRef;
   canvasEl: HTMLCanvasElement;
+  triggerPointerUp() {
+    this.canvasEl.dispatchEvent(new PointerEvent('pointerup', {clientX: 50, clientY: 150}));
+  }
 
   private cx: CanvasRenderingContext2D;
 
@@ -104,7 +114,7 @@ export class DrawingCanvasComponent implements OnInit, AfterViewInit, OnDestroy 
           return fromEvent(canvasEl, 'pointermove')
             .pipe(
               takeUntil(fromEvent(canvasEl, 'pointerup')),
-              // takeUntil(fromEvent(canvasEl, 'mouseleave')), // if enabled it stops when you draw over an image
+              // takeUntil(fromEvent(canvasEl, 'pointerleave')), // if enabled it stops when you draw over an image
               pairwise()
             )
         })
@@ -129,6 +139,7 @@ export class DrawingCanvasComponent implements OnInit, AfterViewInit, OnDestroy 
         if (!this.displayFullScreen) {
           this.drawOnCanvas(prevPos, currentPos);
         }
+
       });
   }
 
