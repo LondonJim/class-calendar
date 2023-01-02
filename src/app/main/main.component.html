@@ -24,6 +24,7 @@
       [style.top.px] = 'displayedImage.y'
       [src]="displayedImage.link"
       [alt]="displayedImage.tag"
+      [matTooltip]="displayFullScreen ? '' : 'Click and drag to move'"
       (pointerdown)="onPointerDown(index, $event)"
       (click)="onShowEdit(index, $event)">
     <div
@@ -31,11 +32,12 @@
       *ngIf="displayedImage.edit"
       [style.left.px] = 'displayedImage.x - 5'
       [style.top.px] = 'displayedImage.y -41'>
-      <mat-icon (click)="onIncrease(index)">add</mat-icon>
-      <mat-icon (click)="onDecrease(index)">remove</mat-icon>
-      <mat-icon (click)="onIncreasePosition(index)">keyboard_arrow_up</mat-icon>
-      <mat-icon (click)="onDecreasePosition(index)">keyboard_arrow_down</mat-icon>
-      <mat-icon (click)="onRemove(index)">clear</mat-icon>
+      <mat-icon matTooltip="Make larger" (click)="onIncrease(index)">add</mat-icon>
+      <mat-icon matTooltip="Make smaller" (click)="onDecrease(index)">remove</mat-icon>
+      <mat-icon matTooltip="Move layer up" (click)="onIncreasePosition(index)">keyboard_arrow_up</mat-icon>
+      <mat-icon matTooltip="Move layer down" (click)="onDecreasePosition(index)">keyboard_arrow_down</mat-icon>
+      <mat-icon matTooltip="Delete Picture" (click)="onRemove(index)">clear</mat-icon>
+      <mat-icon matTooltip="Finish Editing" (click)="onButtonCloseEdit(index)">check_small</mat-icon>
     </div>
     <div
       class="icon-title"

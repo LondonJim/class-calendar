@@ -57,6 +57,7 @@ export class MainComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.displayFullScreen = this.dailyLayoutService.fullScreen;
+    this.dailyLayoutService.resetEditMode();
     this.dailyLayoutService.selectedDayChange.subscribe(value => {
       this.resetCanvas();
       this.displayedImages = this.dailyLayoutService.dailyLayout[this.dailyLayoutService.selectedDay].images;
@@ -104,8 +105,15 @@ export class MainComponent implements OnInit, AfterViewInit {
     this.selectedY = event.target.offsetTop;
   }
 
+  onButtonCloseEdit(index) {
+    this.dailyLayoutService.editModeToggle(index);
+  }
   onShowEdit(index, event) {
-    if (this.selectedIndex === index && this.selectedX === event.target.offsetLeft && this.selectedY === event.target.offsetTop) {
+    const isEditable = this.selectedIndex === index
+      && this.selectedX === event.target.offsetLeft
+      && this.selectedY === event.target.offsetTop
+      && this.displayFullScreen === false;
+    if (isEditable) {
       this.dailyLayoutService.editModeToggle(index);
     }
   }
