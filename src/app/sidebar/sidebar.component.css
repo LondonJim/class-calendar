@@ -43,11 +43,10 @@
 .icon-spread {
   display: flex;
   justify-content: space-evenly;
-  height: 32px;
 }
 
 .icon-select{
-  font-size: 30px;
+  font-size: 25px;
   cursor: pointer;
 }
 
