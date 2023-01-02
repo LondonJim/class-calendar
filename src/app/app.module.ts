@@ -16,6 +16,16 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatTooltipDefaultOptions, MAT_TOOLTIP_DEFAULT_OPTIONS } from '@angular/material/tooltip';
+
+export const OtherOptions: MatTooltipDefaultOptions = {
+  showDelay: 0,
+  hideDelay: 0,
+  touchGestures: 'auto',
+  position: 'below',
+  touchendHideDelay: 0,
+  disableTooltipInteractivity: true,
+}
 
 @NgModule({
   declarations: [
@@ -39,7 +49,9 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
     MatSelectModule,
     MatButtonToggleModule,
   ],
-  providers: [],
+  providers: [
+    {provide: MAT_TOOLTIP_DEFAULT_OPTIONS, useValue: OtherOptions}
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule { }
